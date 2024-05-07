@@ -10,6 +10,7 @@
   import ProjectView from './ProjectView.svelte';
   import { checkViewport } from '$lib/stores/isMobile.svelte';
   import { getRandomNumber } from '$lib/utils/randomNum';
+  import { preload } from '$lib/utils/preload';
 
   const viewport = checkViewport();
   let pageTitle: HTMLElement;
@@ -18,6 +19,17 @@
   let showProjectView = $state(false);
 
   onMount(() => {
+    projects.forEach(project => {
+      if (project.videos) {
+        preload(project.videos?.desktop ?? '');
+        preload(project.videos?.mobile ?? '');
+      }
+
+      if (project.images) {
+        preload(project.images?.mobile ?? '');
+        preload(project.images?.desktop ?? '');
+      }
+    });
     const tl = gsap.timeline();
     tl.to('.project', {
       y: (_i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
