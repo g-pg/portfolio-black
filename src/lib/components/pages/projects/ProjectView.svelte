@@ -9,7 +9,9 @@
   import { browser } from '$app/environment';
   import { onMount } from 'svelte';
   import gsap from 'gsap';
-
+  import { generateTippy } from '$lib/utils/tippy';
+  import Underline from '$lib/components/misc/Underline.svelte';
+  import GithubIcon from '~icons/bx/bxl-github';
   type Props = {
     project: Project;
     showView: boolean;
@@ -29,7 +31,8 @@
     if (showView) {
       gsap.to('.view-container', {
         width: '100vw',
-        height: () => (window.innerWidth < 800 ? '100dvh' : '100vw'),
+        // height: () => (window.innerWidth < 500 ? '100dvh' : '100vw'),
+        height: 'max(100vw, 100dvh)',
         duration: 0.5,
         borderRadius: 0,
       });
@@ -51,8 +54,20 @@
       document.body.style.overflow = showView ? 'hidden' : 'auto';
     }
   });
+
+  function getIcon(type: string) {
+    switch (type) {
+      case 'github':
+        return GithubIcon;
+      case 'url':
+        return ExternalLinkIcon;
+      default:
+        null;
+    }
+  }
 </script>
 
+<!-- <Underline></Underline> -->
 {#snippet info(text)}
   <h3 class="info-title">{infoTitles[text as  keyof Project['texts']]}</h3>
 
@@ -61,7 +76,7 @@
       <p>{t}</p>
     {/each}
   {:else}
-    <p>{project.texts[text as  keyof Project['texts']]}</p>
+    <p>{@html project.texts[text as  keyof Project['texts']]}</p>
   {/if}
 {/snippet}
 
@@ -69,7 +84,7 @@
   <div class="phone-mock">
     <img class="phone-mock-img" src={phonePicture} alt="" />
     {#if project?.videos?.mobile}
-      <video class="project-mobile-img" src={project.videos?.desktop} muted autoplay loop></video>
+      <video class="project-phone-img" src={project.videos?.desktop} muted autoplay loop></video>
     {:else if project.images?.mobile}
       <img class="project-phone-img" src={project?.images?.mobile} alt="" />
     {/if}
@@ -80,13 +95,25 @@
   <div class="desktop-mock">
     <img class="desktop-mock-img" src={notebookPicture} alt="" />
     {#if project?.videos?.desktop}
-      <div class="video-wrapper project-desktop-img">
-        <video src={project.videos?.desktop} muted autoplay loop></video>
-      </div>
+      <video class="project-desktop-img" src={project.videos?.desktop} muted autoplay loop></video>
     {:else if project.images?.desktop}
       <img class="project-desktop-img" src={project?.images?.desktop} alt="" />
     {/if}
   </div>
+{/snippet}
+
+{#snippet projectLinks(type: string, href)}
+  {#if href}
+    {#if href === 'private'}
+      <a class="private-link" href={null} use:generateTippy={{ content: 'Oops, este projeto é privado!' }}>
+        <svelte:component this={getIcon(type)} />
+      </a>
+    {:else}
+      <a {href}>
+        <svelte:component this={getIcon(type)} />
+      </a>
+    {/if}
+  {/if}
 {/snippet}
 <!-- transition:fly={{ y: -window.innerHeight, opacity: 1, duration: 800 }} -->
 <!-- <div class="overlay" class:visible={showView}></div> -->
@@ -94,15 +121,16 @@
 <div class="view-container">
   <div class="view">
     <button class="close-btn" onclick={() => (showView = false)}><CloseIcon /></button>
-    <div class="view-wrapper">
+    <div class="view-wrapper container">
       <div class="header">
         <h2>{project?.fullName}</h2>
         <div class="icons">
-          <a href={project.links?.url}><ExternalLinkIcon /></a>
+          {@render projectLinks('url', project.links?.url)}
+          {@render projectLinks('github', project.links?.github)}
         </div>
       </div>
       <div class="content">
-        <div class="project-info">
+        <div class="info-column">
           {#each Object.keys(project.texts) as t}
             <div class="info-wrapper">
               {@render info(t)}
@@ -110,13 +138,15 @@
           {/each}
         </div>
 
-        <div class="mocks-wrapper">
-          {#if project.videos?.desktop || project.images?.desktop}
-            {@render desktopMock(project)}
-          {/if}
-          {#if project.videos?.mobile || project.images?.mobile}
-            {@render phoneMock(project)}
-          {/if}
+        <div class="mocks-column">
+          <div class="mocks-wrapper">
+            {#if project.videos?.desktop || project.images?.desktop}
+              {@render desktopMock(project)}
+            {/if}
+            {#if project.videos?.mobile || project.images?.mobile}
+              {@render phoneMock(project)}
+            {/if}
+          </div>
         </div>
       </div>
     </div>
@@ -143,8 +173,8 @@
   .view {
     position: absolute;
     background: var(--cl-white);
-    width: 80vw;
-    height: 90dvh;
+    width: 100vw;
+    height: 100dvh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -158,6 +188,7 @@
     color: var(--cl-grey-600);
     font-size: 2.5rem;
     position: absolute;
+    /* position: sticky; */
     top: 1rem;
     /* top: 1rem; */
     left: 50%;
@@ -166,18 +197,11 @@
 
   .view-wrapper {
     padding-top: 5rem;
-    /* width: 90%; */
-    /* max-width: 1440px; */
-    padding-inline: 2rem;
+
+    /* padding-inline: 2rem; */
     color: var(--cl-grey-300);
-    /* overflow: auto; */
-    margin-inline: auto;
-    margin-top: 1rem;
-    /* min-height: 100%; */
-    /* min-height: 100vh; */
+    /* margin-inline: auto; */
     position: relative;
-    /* display: grid;
-        place-content: center; */
   }
 
   .header {
@@ -185,183 +209,143 @@
     align-items: center;
     font-size: 1.5rem;
     gap: 1rem;
-
     color: var(--cl-grey-300);
   }
+
   .header h2 {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
   }
+
   .icons {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: clamp(1.3rem, 5vw, 2rem);
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    z-index: 999999;
   }
 
-  .project-info {
-    width: 35%;
-    /* border: 1px solid red; */
+  .icons :global(svg) {
+    padding: 0;
+    transform: translateY(6px);
+  }
+
+  .private-link {
+    cursor: not-allowed;
+  }
+
+  .info-column {
+    width: 100%;
+    grid-area: info;
+  }
+
+  .content {
+    display: grid;
+    grid-template-areas: 'info mocks mocks';
+    margin-top: 3rem;
+    gap: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .info-wrapper :global(.underline) {
+    --color: var(--cl-text-low);
+  }
+  .mocks-column {
+    width: 100%;
+    position: relative;
+
+    grid-area: mocks;
   }
 
   .mocks-wrapper {
-    width: 60%;
-    position: absolute;
-    top: 7%;
-    right: 0;
-    min-height: 100%;
+    position: sticky;
+    top: 1rem;
   }
-
   .desktop-mock,
   .phone-mock {
-    /* top: -50px; */
     top: 0;
     right: 0;
-    position: absolute;
-    /* width: 100%; */
+    position: relative;
+
+    /* overflow: hidden; */
   }
 
   .desktop-mock {
-    width: clamp(300px, 50vw, 850px);
+    width: clamp(340px, 80vw, 800px);
+    z-index: 5000;
   }
 
   .phone-mock {
-    width: clamp(200px 10vw, 360px);
+    width: clamp(90px, 20vw, 360px);
+    max-width: fit-content;
+    z-index: 5010;
+    position: absolute;
+    top: 15%;
+    right: 0;
   }
 
   .desktop-mock-img,
   .phone-mock-img {
     z-index: 4900;
     position: relative;
-  }
-
-  .phone-mock {
-    z-index: 4950;
-    top: min(30%, 7vw);
-    /* top: 20%; */
-    right: 1rem;
-
-    /* position: absolute; */
-    /* overflow: hidden; */
-
-    /* max-width: 200px; */
+    overflow: hidden;
   }
 
   .project-desktop-img {
     position: absolute;
-    top: 17.5%;
-
-    left: 14.5%;
-    width: 71%;
-    height: 100%;
+    top: 2.3%;
+    left: 13%;
+    width: 74.3%;
     z-index: 4880;
   }
 
-  .project-desktop-img {
-    /* border: 1px solid red; */
-  }
-  .project-desktop-img video {
-    /* height: 500px; */
-    /* transform: translateY(4px); */
-    width: 100%;
-    object-position: center;
-    object-fit: fill;
-    position: absolute;
-  }
   .project-phone-img {
     position: absolute;
     top: 2.5%;
-    /* top: 1px; */
-    left: 7.1%;
-    width: 86.3%;
+    left: 6.5%;
+    width: 87%;
     height: auto;
     z-index: 4880;
     border-radius: 12px;
     max-height: 350px;
   }
-  .project-info {
-    margin-top: 3rem;
+  .info-column {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    /* min-width: 350px; */
   }
 
   p {
     line-height: 1.5;
   }
+
   ::selection {
     background: var(--cl-bg);
     color: var(--cl-text);
   }
 
-  .info-wrapper {
-    text-transform: none;
-  }
-
-  .info-title {
-    margin-bottom: 0rem;
-  }
-
-  .view-wrapper {
-    /* margin-top: 2rem; */
-    /* padding: 2rem; */
-  }
-  @media (max-width: 1100px) {
-    .close-btn {
-      /* top: 3rem; */
-      margin-top: 1rem;
+  @media (max-width: 1250px) {
+    .content {
+      grid-template-areas:
+        'mocks'
+        'info';
+      gap: 4rem;
     }
 
     .mocks-wrapper {
-      height: 100%;
-      top: 8%;
-      right: 0;
+      position: relative;
+      width: fit-content;
+      margin-inline: auto;
     }
 
     .phone-mock {
-      width: 300px;
-      top: 20px;
-      max-width: clamp(90px, 15vw, 200px);
+      top: 10%;
+      right: 0;
     }
 
-    .view {
-      /* top: 50vh; */
-      width: 100%;
-      height: 100dvh;
-    }
-
-    .project-info {
-      width: 100%;
-    }
-
-    @media (max-width: 500px) {
-      .view-container {
-        border-radius: 0;
-      }
-      .header {
-        justify-content: center;
-      }
-
-      .mocks-wrapper {
-        top: 6rem;
-
-        right: 0;
-        min-height: auto;
-        height: auto;
-        width: 100%;
-        max-width: auto;
-      }
-
-      .phone-mock {
-        left: 65%;
-      }
-
-      .desktop-mock {
-        left: 10%;
-      }
-
-      .project-info {
-        margin-top: 250px;
-      }
+    .header {
+      display: flex;
+      flex-direction: column;
     }
   }
 </style>

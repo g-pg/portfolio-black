@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { generateTippy } from '$lib/utils/tippy';
   import ScrollMessage from '../../nav/ScrollMsg.svelte';
   import { projects, type Project as ProjectType } from './projectsData';
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -8,6 +9,7 @@
   import { blockScroll } from '$lib/utils/blockScroll';
   import ProjectView from './ProjectView.svelte';
   import { checkViewport } from '$lib/stores/isMobile.svelte';
+  import { getRandomNumber } from '$lib/utils/randomNum';
 
   const viewport = checkViewport();
   let pageTitle: HTMLElement;
@@ -32,6 +34,23 @@
     // if (window.innerWidth < 780) {
     bubbleGrowOnScroll(projectsEl);
     // }
+
+    gsap.fromTo(
+      pageTitle,
+      { opacity: 0 },
+      {
+        opacity: 1,
+
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: pageTitle,
+          toggleActions: 'play none none reverse',
+          start: 'top 60%',
+        },
+
+        onStart: () => textShuffle(pageTitle, { playOn: ['load'], duration: 0.8, speed: 0.06 }) as any,
+      }
+    );
   });
 
   function bubbleGrowOnScroll(projects: HTMLElement[]) {
@@ -59,7 +78,7 @@
     xForce += movementX * mouseMovementSpeed;
     yForce += movementY * mouseMovementSpeed;
 
-    if (!requestAnimationFrameId && !viewport.isMobile) {
+    if (!requestAnimationFrameId) {
       requestAnimationFrameId = requestAnimationFrame(floatAround);
     }
   }
@@ -72,11 +91,7 @@
       // console.log(window.innerWidth);
       // console.log(el.innerText, el.getBoundingClientRect());
       const { left, right, top, bottom } = el.getBoundingClientRect();
-
-      if (i === 0) {
-        console.log([bottom]);
-      }
-      if ([left, top].some(n => n < 15) || right >= window.innerWidth - 15 || bottom >= window.innerHeight - 15) {
+      if ([left].some(n => n < 15) || right >= window.innerWidth - 15) {
         gsap.set(el, {
           x: 0,
           y: 0,
@@ -94,6 +109,11 @@
       } else {
         gsap.set(el, { x: `+=${xForce * mouseMovementSpeed * 0.25} `, y: `+=${yForce * mouseMovementSpeed}` });
       }
+
+      // gsap.set(el, {
+      //   x: `+=${xForce * mouseMovementSpeed * getRandomNumber(0, 1)}`,
+      //   y: `+=${yForce * mouseMovementSpeed * getRandomNumber(0, 1)} `,
+      // });
     });
 
     requestAnimationFrame(floatAround);
@@ -111,13 +131,11 @@
   use:blockScroll={{ delay: 1.6 }}
   onresize={() => resize++}>
   <!-- <div class="wrapper" id="projects-section"> -->
-  <h1 id="projects-title" bind:this={pageTitle} use:textShuffle={{ playOn: ['load'], duration: 1, speed: 0.08 }}>
-    Projetos
-  </h1>
+  <h1 id="projects-title" bind:this={pageTitle}>Projetos</h1>
 
-  <!-- {#if viewport.isMobile} -->
-  <ScrollMessage />
-  <!-- {/if} -->
+  {#if viewport.isMobile}
+    <ScrollMessage />
+  {/if}
 
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="projects-wrapper" onmousemove={handleMouseMovement}>
@@ -154,22 +172,21 @@
 
 <style>
   .wrapper {
-    margin-top: 50dvh;
+    /* padding-top: 10dvh; */
   }
 
   h1 {
     color: var(--cl-text-high);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* opacity: 0.2; */
-    font-size: clamp(3rem, 10vw, 7rem);
+    position: sticky;
+    top: 45%;
+
+    font-size: clamp(2rem, 10vw, 6rem);
     cursor: default;
     pointer-events: none;
     z-index: 500;
     text-align: center;
     mix-blend-mode: difference;
+    text-transform: uppercase;
   }
 
   @keyframes spin {
@@ -190,7 +207,8 @@
     position: relative;
     max-width: 1440px;
     margin-inline: auto;
-    min-height: 100vh;
+    min-height: 70vh;
+    /* border: 1px solid red; */
   }
 
   .project {
@@ -204,13 +222,15 @@
       transform 0.5s ease-out,
       filter 0.3s ease,
       background 0.3s ease,
-      border 0.5s ease;
+      border 0.5s ease,
+      scale 0.5s ease;
     /* color: var(--cl-bg); */
     text-transform: uppercase;
     aspect-ratio: 1;
     mix-blend-mode: difference;
     font-size: 0.8rem;
     border: 2px solid white;
+    font-family: var(--overpass);
   }
 
   .project-btn {
@@ -222,6 +242,12 @@
     background: white;
     color: black;
     z-index: 510;
+  }
+
+  @media (min-width: 780px) {
+    .project:hover {
+      scale: 1.2 !important;
+    }
   }
 
   .project.axon {
@@ -247,12 +273,11 @@
     left: 10%;
     width: 100px;
     height: 100px;
-    filter: blur(0.5px);
   }
 
   .project.connect {
     z-index: 510;
-    top: 30%;
+    top: 60%;
     right: 40%;
     width: 180px;
     height: 180px;
@@ -261,6 +286,7 @@
   @media (max-width: 768px) {
     .projects-wrapper {
       margin-top: 100vh;
+      min-height: 100vh;
     }
     .project {
       height: 120px;

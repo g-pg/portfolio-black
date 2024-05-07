@@ -105,6 +105,8 @@
     width: 100%;
     max-width: 850px;
     margin-inline: auto;
+    font-family: var(--overpass);
+    text-transform: uppercase;
   }
 
   .tools-wrapper span {

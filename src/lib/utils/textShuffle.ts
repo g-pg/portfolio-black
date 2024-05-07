@@ -50,7 +50,9 @@ class Shuffle {
   dictionary = 'abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*();:<>,./?';
 
   isShuffling = false;
-  reverseOnMouseLeave;
+  reverseOnMouseLeave = true;
+
+  differentNodes = false;
   constructor(node: HTMLElement, options?: ShuffleOptions) {
     this.id = String(shuffles.length + 1);
     this.node = node;
@@ -62,9 +64,12 @@ class Shuffle {
     this.targetNode = options?.targetNode || this.node;
     this.finalText = options?.finalText || this.node.innerText;
     this.startText = this.targetNode.innerText || node?.innerText;
-    this.reverseOnMouseLeave = options?.reverseOnMouseLeave || true;
+    this.reverseOnMouseLeave = options?.hasOwnProperty('reverseOnMouseLeave') ? options.reverseOnMouseLeave! : true;
     this.dictionary = this.chooseDictionary(options?.dictionary || 'all');
 
+    if (options?.targetNode) {
+      this.differentNodes = true;
+    }
     if (this.playOn.includes('load')) {
       setTimeout(() => {
         this.shuffle();
@@ -77,15 +82,17 @@ class Shuffle {
   }
 
   private _mouseEnterFunction() {
-    clearInterval(this.shuffleInterval);
-    clearTimeout(this.shuffleTimeout);
+    this.clearShuffle();
+    // clearInterval(this.shuffleInterval);
+    // clearTimeout(this.shuffleTimeout);
     this.shuffle();
     this.targetNode.innerText = this.startText;
   }
 
   private _mouseLeaveFunction() {
-    clearInterval(this.shuffleInterval);
-    clearTimeout(this.shuffleTimeout);
+    this.clearShuffle();
+    // clearInterval(this.shuffleInterval);
+    // clearTimeout(this.shuffleTimeout);
     this.targetNode.innerText = this.startText;
 
     if (this.reverseOnMouseLeave) {
@@ -166,7 +173,7 @@ class Shuffle {
     const startClearingTm = setTimeout(
       () => {
         startClearing = true;
-        const countDownTimer = this.duration * 0.8 * 100;
+        const countDownTimer = this.duration * 0.5 * 100;
         const int = setInterval(() => countDown++, countDownTimer);
       },
       this.duration * 0.5 * 1000
@@ -175,13 +182,18 @@ class Shuffle {
     this.shuffleTimeout = setTimeout(() => {
       this.clearShuffle();
       clearTimeout(startClearingTm);
+
       this.targetNode.innerText = finalText;
     }, this.duration * 1000);
   }
 
   clearShuffle() {
     clearTimeout(this.shuffleTimeout);
+
     clearInterval(this.shuffleInterval);
-    this.targetNode.removeAttribute(`data-shuffling`);
+
+    if (!this.differentNodes) {
+      this.targetNode.removeAttribute(`data-shuffling`);
+    }
   }
 }

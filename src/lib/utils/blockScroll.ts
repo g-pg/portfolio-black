@@ -1,17 +1,19 @@
 type BlockScrollOptions = {
-	delay: number;
+  delay?: number;
 };
 
-export function blockScroll(node: HTMLElement, options: BlockScrollOptions) {
-	document.body.style.overflow = 'hidden';
+export function blockScroll(node?: HTMLElement, options?: BlockScrollOptions) {
+  document.body.style.overflow = 'hidden';
 
-	setTimeout(() => {
-		document.body.style.overflow = 'auto';
-	}, options.delay * 1000);
+  if (options?.delay) {
+    setTimeout(() => {
+      document.body.style.overflow = 'auto';
+    }, options.delay! * 1000);
+  }
 
-	return {
-		destroy() {
-			document.body.style.overflow = 'auto';
-		},
-	};
+  return {
+    destroy() {
+      document.body.style.overflow = 'auto';
+    },
+  };
 }

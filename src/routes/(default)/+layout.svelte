@@ -1,9 +1,13 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import { onNavigate } from '$app/navigation';
+  import { page } from '$app/stores';
   import Navbar from '$lib/components/nav/Navbar.svelte';
+  import { navState } from '$lib/stores/navState.svelte.js';
+  import { sleep } from '$lib/utils/sleep.js';
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+  import { onMount } from 'svelte';
 
   type Document = {
     startViewTransition?: (cb: () => void) => void;
@@ -13,13 +17,32 @@
 
   onNavigate(navigation => {
     if (!(document as Document).startViewTransition!) return;
+    if (navState.navOrigin) return;
+
+    console.log(navState.state);
     return new Promise(resolve => {
       (document as Document).startViewTransition!(async () => {
         resolve();
+
         await navigation.complete;
       });
     });
   });
+
+  $effect(() => {});
+
+  let resize = $state(0);
+  let timeout = $state(0);
+
+  // onMount(() => {
+  //   window.addEventListener('resize', () => {
+  //     clearInterval(timeout);
+  //     timeout = setTimeout(() => {
+  //       resize++;
+  //       console.log(resize);
+  //     }, 200);
+  //   });
+  // });
 
   if (browser) {
     gsap.registerPlugin(ScrollTrigger);
@@ -27,9 +50,20 @@
 </script>
 
 <Navbar />
-{@render children()}
+{#if !navState.navOrigin}
+  {#if $page.url.pathname !== '/'}
+    <div class="spacing"></div>
+  {/if}
+
+  <main>
+    {@render children()}
+  </main>
+{/if}
 
 <style>
+  .spacing {
+    padding-top: var(--header-height);
+  }
   @keyframes fade-in {
     from {
       opacity: 0;

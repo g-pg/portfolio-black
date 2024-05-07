@@ -1,9 +1,19 @@
 <script lang="ts">
   import { textShuffle } from '$lib/utils/textShuffle';
+  import { onMount } from 'svelte';
   import CardsIcon from '~icons/tabler/cards';
-  import LinkedinIcon from '~icons/bx/bxl-linkedin';
+
   import MeIcon from '~icons/tabler/user-question';
 </script>
+
+{#snippet icon(href: string, name: string, icon: any)}
+  <a
+    class={name.toLowerCase()}
+    {href}
+    use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: name, duration: 0.5, speed: 0.05}}>
+    <svelte:component this={icon} />
+  </a>
+{/snippet}
 
 <div class="page-wrapper">
   <main class="container">
@@ -13,37 +23,24 @@
       <h2
         use:textShuffle={{
           playOn: ['hover', 'load'],
-          speed: 0.08,
-          duration: 3,
+          speed: 0.06,
+          duration: 1.6,
         }}>
         Web Developer
       </h2>
     </div>
     <div class="icons-wrapper fly">
-      <a
-        href="/projects"
-        use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: 'Projetos', }}>
-        <CardsIcon />
-      </a>
-      <a
-        href="/about"
-        target="_blank"
-        title="Sobre"
-        use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: 'Sobre',}}>
-        <MeIcon />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/ggusso/"
-        target="_blank"
-        title="Linkedin"
-        use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: 'LinkedIn', }}>
-        <LinkedinIcon />
-      </a>
+      {@render icon('/projects', 'Projetos', CardsIcon)}
+      {@render icon('/about', 'Sobre', MeIcon)}
     </div>
   </main>
+  <p class="location fly">Curitiba, Brasil.</p>
 </div>
 
 <style>
+  .projects-page-wrapper {
+    position: relative;
+  }
   .page-wrapper {
     /* margin-top: -2rem; */
     display: grid;
@@ -58,6 +55,7 @@
     color: var(--cl-text);
     font-weight: 400;
     font-size: inherit;
+    text-transform: uppercase;
   }
 
   main {
@@ -65,6 +63,7 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    scale: 1.2;
   }
 
   .fly {
@@ -87,23 +86,21 @@
   }
 
   .title-wrapper {
+    font-family: var(--overpass);
     display: flex;
     align-items: center;
-    /* flex-direction: column; */
     font-size: 1rem;
     gap: 0.5rem;
     position: relative;
     min-width: 286px;
-    /* pointer-events: none; */
     cursor: default;
     user-select: none;
     animation-delay: 0.3s;
-
-    /* transition: all .5s ease; */
+    text-align: center;
   }
   h2 {
     position: absolute;
-    left: 152px;
+    left: 165px;
     width: max-content;
     /* top: 0; */
   }
@@ -111,8 +108,8 @@
   .icons-wrapper {
     display: flex;
     gap: 1rem;
-    font-size: 1.7rem;
-    animation-delay: 0.95s;
+    font-size: 1.5rem;
+    animation-delay: 1.4s;
   }
 
   a {
@@ -122,5 +119,29 @@
   a:hover {
     transform: translateY(2px);
     color: var(--cl-text-low);
+  }
+  .location {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    translate: -40% 0;
+    /* transform: translateX(-40%); */
+    color: var(--cl-text-low);
+    font-family: var(--overpass);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    opacity: 1;
+    text-align: center;
+    animation-delay: 1.8s;
+    opacity: 0;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 400px) {
+    main {
+      scale: 1;
+    }
   }
 </style>
