@@ -19,23 +19,21 @@
   }
 </script>
 
-{#if $page.url.pathname !== '/'}
-  <div class="wrapper" class:faded use:scrollDirection ondirection={handleScroll}>
-    <a href="https://www.linkedin.com/in/ggusso/" target="_blank">
-      <LinkedinIcon />
-      <p>/ggusso</p></a>
+<div class="wrapper" class:faded use:scrollDirection ondirection={handleScroll}>
+  <a href="https://www.linkedin.com/in/ggusso/" target="_blank">
+    <LinkedinIcon />
+    <p>/ggusso</p></a>
 
-    <a href="https://github.com/g-pg" target="_blank">
-      <GithubIcon />
-      <p>/g-pg</p>
-    </a>
+  <a href="https://github.com/g-pg" target="_blank">
+    <GithubIcon />
+    <p>/g-pg</p>
+  </a>
 
-    <a class="mail" href="https://github.com/g-pg" target="_blank">
-      <MailIcon />
-      <p>gabrielpgusso<br />@gmail.com</p>
-    </a>
-  </div>
-{/if}
+  <a class="mail" href="https://github.com/g-pg" target="_blank">
+    <MailIcon />
+    <p>gabrielpgusso<br />@gmail.com</p>
+  </a>
+</div>
 
 <style>
   .faded {
