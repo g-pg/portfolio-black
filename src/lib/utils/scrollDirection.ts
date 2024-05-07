@@ -18,8 +18,6 @@ export function scrollDirection(node: HTMLElement) {
       lastPos = window.scrollY;
       return 'up';
     }
-
-    console.log(lastPos);
   }
 
   // document.addEventListener('scroll',)
