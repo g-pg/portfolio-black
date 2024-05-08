@@ -200,7 +200,7 @@
     column-gap: 0.8rem;
     place-items: center;
     position: relative;
-    max-width: 1440px;
+    max-width: 1920px;
     margin-inline: auto;
     min-height: 90vh;
     /* border: 1px solid red; */
@@ -300,21 +300,34 @@
 
     .project.axon {
       left: 1rem;
+      width: 140px;
+      height: 140px;
     }
 
     .project.muvi {
       top: 0;
+      right: 1rem;
+      width: 120px;
+      height: 120px;
     }
 
     .project.connect {
       left: 1rem;
-      top: 45%;
+      top: 60%;
+      width: 170px;
+      height: 170px;
     }
 
     .project.hub {
-      top: 35%;
+      top: 17%;
       left: unset;
-      right: 1rem;
+      right: 30%;
+    }
+
+    .project.old_portfolio {
+      left: unset;
+      top: 45%;
+      right: 3rem;
     }
   }
 </style>

@@ -7,7 +7,7 @@
 
 <div class="page-wrapper">
   <div class="container">
-    <Tools />
+    <!-- <Tools /> -->
   </div>
   <ProjectsGrid />
   <div class="nav-wrapper">
