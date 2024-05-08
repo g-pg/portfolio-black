@@ -109,7 +109,7 @@
         <svelte:component this={getIcon(type)} />
       </a>
     {:else}
-      <a {href}>
+      <a {href} target="_blank">
         <svelte:component this={getIcon(type)} />
       </a>
     {/if}

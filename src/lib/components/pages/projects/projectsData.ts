@@ -3,13 +3,15 @@ import AxonWebsiteMobile from '$lib/assets/projects/axon-website/mobile.png';
 import AxonWebsiteDesktopVideo from '$lib/assets/projects/axon-website/desktop-video.mp4';
 import MuviDesktopVideo from '$lib/assets/projects/muvi/desktop-video.mp4';
 import MuviMobile from '$lib/assets/projects/muvi/mobile.png';
-
 import ConnectThumb from '$lib/assets/projects/connect/thumb.webp';
 import ConnectDesktopVideo from '$lib/assets/projects/connect/desktop-video.mp4';
 import ConnectMobile from '$lib/assets/projects/connect/mobile.png';
-
 import HubDesktopVideo from '$lib/assets/projects/axon-hub/desktop-video.mp4';
+
+import OldPortfolioDesktopImage from '$lib/assets/projects/old-portfolio/desktop.png';
+import OldPortfolioMobileImage from '$lib/assets/projects/old-portfolio/mobile.png';
 export type Project = {
+  className: string;
   shortName: string;
   fullName: string;
   mainColor: string;
@@ -37,6 +39,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    className: 'axon',
     shortName: 'Axon',
     fullName: 'Axon Technology',
     mainColor: '#008c6b',
@@ -68,6 +71,7 @@ export const projects: Project[] = [
     },
   },
   {
+    className: 'muvi',
     shortName: 'Muvi',
     fullName: 'Muvi',
     mainColor: '#f72585',
@@ -99,6 +103,7 @@ export const projects: Project[] = [
     },
   },
   {
+    className: 'connect',
     shortName: 'Connect',
     fullName: 'Connect',
     mainColor: '#008c6b',
@@ -125,6 +130,7 @@ export const projects: Project[] = [
     },
   },
   {
+    className: 'hub',
     shortName: 'Hub',
     fullName: 'Axon Hub',
     mainColor: 'white',
@@ -149,6 +155,36 @@ export const projects: Project[] = [
     },
     links: {
       url: 'private',
+    },
+  },
+  {
+    className: 'old_portfolio',
+    shortName: 'Portfolio [old]',
+    fullName: 'Antigo portfólio',
+    mainColor: 'white',
+    type: 'website',
+    texts: {
+      company: 'Projeto pessoal',
+      roles: ['Desenvolvedor', 'Designer'],
+      tools: ['TypeScript', 'NextJS'],
+      description: `
+      Meu primeiro portfólio, do início da minha carreira. Simples, simples, simples, mas tenho um tremendo orgulho dele, porque ele contém algumas das coisas que gosto em uma página, como transições suaves e interações inesperadas (já tentou usar os controles de janela do prompt na Hero?). 
+      <br><br>
+      Deixo-o aqui menos como exemplo do que sei fazer, e mais como registro da minha evolução. 
+        `,
+    },
+    thumbnail: ConnectThumb,
+    // images: {
+    // 	mobile: MuviMobile,
+    // },
+
+    images: {
+      mobile: OldPortfolioMobileImage,
+      desktop: OldPortfolioDesktopImage,
+    },
+    links: {
+      url: 'https://gpg-portfolio-old.vercel.app/',
+      github: 'https://github.com/g-pg/portfolio',
     },
   },
 ];

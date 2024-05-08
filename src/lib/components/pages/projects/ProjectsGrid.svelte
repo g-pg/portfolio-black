@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { generateTippy } from '$lib/utils/tippy';
   import ScrollMessage from '../../nav/ScrollMsg.svelte';
   import { projects, type Project as ProjectType } from './projectsData';
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -9,8 +8,8 @@
   import { blockScroll } from '$lib/utils/blockScroll';
   import ProjectView from './ProjectView.svelte';
   import { checkViewport } from '$lib/stores/isMobile.svelte';
-  import { getRandomNumber } from '$lib/utils/randomNum';
   import { preload } from '$lib/utils/preload';
+  import { getRandomNumber } from '$lib/utils/randomNum';
 
   const viewport = checkViewport();
   let pageTitle: HTMLElement;
@@ -96,12 +95,10 @@
   }
 
   function floatAround() {
-    xForce = lerp(xForce, 0, 0.15);
-    yForce = lerp(yForce, 0, 0.15);
+    xForce = lerp(xForce, 0, 0.16);
+    yForce = lerp(yForce, 0, 0.16);
 
     projectsEl.forEach((el, i) => {
-      // console.log(window.innerWidth);
-      // console.log(el.innerText, el.getBoundingClientRect());
       const { left, right, top, bottom } = el.getBoundingClientRect();
       if ([left].some(n => n < 15) || right >= window.innerWidth - 15) {
         gsap.set(el, {
@@ -111,21 +108,16 @@
         return;
       }
 
-      if (i % 2 === 0) {
+      if (i % 3 === 0) {
+        gsap.set(el, { x: `+=${xForce * mouseMovementSpeed * 0.5}`, y: `+=${yForce * mouseMovementSpeed}` });
+      } else if (i % 2 === 0) {
         gsap.set(el, {
           x: `+=${xForce * mouseMovementSpeed}`,
           y: `+=${yForce * mouseMovementSpeed}`,
         });
-      } else if (i % 3 === 0) {
-        gsap.set(el, { x: `+=${xForce * mouseMovementSpeed * 0.5}`, y: `+=${yForce * mouseMovementSpeed}` });
       } else {
         gsap.set(el, { x: `+=${xForce * mouseMovementSpeed * 0.25} `, y: `+=${yForce * mouseMovementSpeed}` });
       }
-
-      // gsap.set(el, {
-      //   x: `+=${xForce * mouseMovementSpeed * getRandomNumber(0, 1)}`,
-      //   y: `+=${yForce * mouseMovementSpeed * getRandomNumber(0, 1)} `,
-      // });
     });
 
     requestAnimationFrame(floatAround);
@@ -135,14 +127,12 @@
   let wrapperEl: HTMLElement;
 </script>
 
-<div class="fake-bg"></div>
 <div
   class="wrapper"
   id="projects-section"
   bind:this={wrapperEl}
   use:blockScroll={{ delay: 1.6 }}
   onresize={() => resize++}>
-  <!-- <div class="wrapper" id="projects-section"> -->
   <h1 id="projects-title" bind:this={pageTitle}>Projetos</h1>
 
   {#if viewport.isMobile}
@@ -152,8 +142,7 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="projects-wrapper" onmousemove={handleMouseMovement}>
     {#each projects as p, i}
-      <!-- <Project project={p} {pageTitle} /> -->
-      <div class="project {p.shortName.toLowerCase()}" data-speed="0.3">
+      <div class="project {p.className}" data-speed="0.3">
         <button
           class="project-btn"
           data-speed="0.2"
@@ -174,8 +163,6 @@
         </button>
       </div>
     {/each}
-    <!-- {#if selectedProject?.fullName === p.fullName} -->
-    <!-- {/if} -->
     {#if selectedProject}
       <ProjectView project={selectedProject!} bind:showView={showProjectView} />
     {/if}
@@ -183,10 +170,6 @@
 </div>
 
 <style>
-  .wrapper {
-    /* padding-top: 10dvh; */
-  }
-
   h1 {
     color: var(--cl-text-high);
     position: sticky;
@@ -219,7 +202,7 @@
     position: relative;
     max-width: 1440px;
     margin-inline: auto;
-    min-height: 70vh;
+    min-height: 90vh;
     /* border: 1px solid red; */
   }
 
@@ -270,10 +253,10 @@
     z-index: 510;
   }
 
-  .project.muvi {
+  .project.old_portfolio {
     z-index: 490;
-    top: 10%;
-    right: 15%;
+    top: 40%;
+    left: 10%;
     width: 110px;
     height: 110px;
     /* filter: blur(1px); */
@@ -282,19 +265,25 @@
   .project.hub {
     z-index: 490;
     top: 40%;
-    left: 10%;
+    right: 15%;
     width: 100px;
     height: 100px;
   }
 
   .project.connect {
     z-index: 510;
-    top: 60%;
-    right: 40%;
+    top: 0;
+    right: 30%;
     width: 180px;
     height: 180px;
   }
 
+  .project.muvi {
+    z-index: 490;
+    top: 60%;
+    width: 130px;
+    height: 130px;
+  }
   @media (max-width: 768px) {
     .projects-wrapper {
       margin-top: 100vh;
