@@ -7,23 +7,22 @@
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
   const tools = [
-    'Svelte',
-    'SvelteKit',
-    'React',
-    'Next',
-    'Vite',
     'Javascript',
+    'Typescript',
     'HTML',
     'CSS',
     'SASS',
     'GSAP',
+    'Vite',
+    'Svelte',
+    'SvelteKit',
+    'React',
+    'Next',
     'Figma',
-    'Typescript',
     'Mongo',
     'SQL',
     'Prisma',
     'Node',
-    'Nest',
     'Docker',
   ];
 
