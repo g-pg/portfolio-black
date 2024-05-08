@@ -85,7 +85,7 @@
         </button>
 
         {#snippet link(href, text)}
-          <a {href} onclick={handleNavigate}>{text}</a>
+          <a {href} onclick={handleNavigate} use:textShuffle={{ playOn: ['hover'], duration: 0.4 }}>{text}</a>
         {/snippet}
         <div class="burger-menu">
           <ul>
@@ -101,7 +101,8 @@
 
             <li>
               <a href="/contact" class="contact-link" onclick={handleNavigate}
-                >Fale comigo <ArrowRight font-size="2rem" color="var(--cl-low-text)" />
+                ><span use:textShuffle={{ playOn: ['hover'], duration: 0.3 }}>Fale comigo</span>
+                <ArrowRight font-size="2rem" color="var(--cl-low-text)" />
               </a>
             </li>
           </ul>
