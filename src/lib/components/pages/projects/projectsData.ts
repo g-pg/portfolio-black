@@ -94,7 +94,7 @@ export const projects: Project[] = [
       desktop: MuviDesktopVideo,
     },
     links: {
-      // url: '',
+      url: 'https://gpg-muvi.vercel.app/user',
       github: 'https://github.com/g-pg/muvi',
     },
   },
