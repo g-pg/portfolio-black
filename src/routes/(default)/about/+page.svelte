@@ -1,8 +1,7 @@
 <script lang="ts">
-  import Underline from '$lib/components/misc/Underline.svelte';
   import BottomNav from '$lib/components/nav/BottomNav.svelte';
   import AboutItem from '$lib/components/pages/about/AboutItem.svelte';
-  import { textShuffle } from '$lib/utils/textShuffle';
+
   import gsap from 'gsap';
   import { onMount } from 'svelte';
 
@@ -60,7 +59,7 @@
     },
     {
       title: 'Como eu trabalho',
-      htmlText: `<p>Eu gosto de ser criativo <i>on the go</i>. Todo projeto tem problemas, e talvez a minha parte preferida durante seja investigar as soluções.
+      htmlText: `<p>Eu gosto de ser criativo <i>on the go</i>. Todo projeto tem problemas, e talvez a minha parte preferida seja investigar as soluções.
         <br/><br/>
         Se os problemas estão escondidos, eu os procuro: como melhorar a experiência do usuário? Como otimizar esse algoritmo? Qual é a cereja do bolo?
         <br/><br/>
