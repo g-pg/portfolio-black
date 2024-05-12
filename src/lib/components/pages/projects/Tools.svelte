@@ -53,8 +53,6 @@
       },
     });
   });
-
-  $inspect(filteredTool);
 </script>
 
 {#snippet plus()}
@@ -86,8 +84,11 @@
 {/snippet}
 
 <div class="tools-wrapper">
-  {#each projectTools as tool, i}
-    <button class="tool enter-animation" onclick={() => filterProjects(tool as ProjectFilterTool)}>{tool}</button>
+  {#each projectTools as tool, i (tool + i)}
+    <button
+      class="tool enter-animation"
+      class:filteredTool={tool === filteredTool}
+      onclick={() => filterProjects(tool as ProjectFilterTool)}>{tool}</button>
   {/each}
 
   <div class="controls-wrapper">
@@ -114,6 +115,11 @@
   .tool {
     text-transform: uppercase;
     transition: all 0.3s ease;
+  }
+
+  .filteredTool {
+    transform: translateY(-5px) !important;
+    color: rgb(255, 217, 0);
   }
 
   .tool:hover:not(.filter-btn) {

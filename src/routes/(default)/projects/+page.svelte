@@ -3,12 +3,11 @@
   import ProjectsGrid from '$lib/components/pages/projects/ProjectsGrid.svelte';
   import Tools from '$lib/components/pages/projects/Tools.svelte';
   import { projects, type ProjectFilterTool } from '$lib/components/pages/projects/projectsData';
-  import { checkViewport } from '$lib/stores/isMobile.svelte';
+  import { checkViewport, viewport } from '$lib/stores/isMobile.svelte';
 
   let filteredProjects = $state(projects);
   let filteredTool = $state('');
 
-  const viewport = checkViewport();
   function filterProjects(tool: ProjectFilterTool) {
     if (viewport.isMobile) return;
 

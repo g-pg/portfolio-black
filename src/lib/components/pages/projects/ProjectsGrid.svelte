@@ -8,7 +8,7 @@
   import { textShuffle } from '$lib/utils/textShuffle';
   import { blockScroll } from '$lib/utils/blockScroll';
   import ProjectView from './ProjectView.svelte';
-  import { checkViewport } from '$lib/stores/isMobile.svelte';
+  import { checkViewport, viewport } from '$lib/stores/isMobile.svelte';
   import { preload } from '$lib/utils/preload';
   import { getRandomNumber } from '$lib/utils/randomNum';
 
@@ -17,7 +17,6 @@
   };
   let { projects }: Props = $props();
 
-  const viewport = checkViewport();
   let pageTitle: HTMLElement;
 
   let selectedProject: Project | null = $state(null);

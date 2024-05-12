@@ -19,7 +19,6 @@
     if (!(document as Document).startViewTransition!) return;
     if (navState.navOrigin) return;
 
-    console.log(navState.state);
     return new Promise(resolve => {
       (document as Document).startViewTransition!(async () => {
         resolve();

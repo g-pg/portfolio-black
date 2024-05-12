@@ -1,11 +1,12 @@
+import { browser } from '$app/environment';
 import { onMount } from 'svelte';
 
 export function checkViewport() {
   let isMobile = $state(false);
 
-  onMount(() => {
+  if (browser) {
     isMobile = window.innerWidth < 780;
-  });
+  }
 
   return {
     get isMobile() {
@@ -13,3 +14,5 @@ export function checkViewport() {
     },
   };
 }
+
+export const viewport = checkViewport();

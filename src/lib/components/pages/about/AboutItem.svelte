@@ -44,8 +44,9 @@
     text-transform: uppercase;
     font-weight: 400;
     font-family: var(--overpass);
-    display: flex;
+    /* display: flex;
     align-items: center;
+    justify-content: flex-start; */
     width: fit-content;
     gap: 1rem;
     font-size: 1.3rem;
@@ -57,12 +58,12 @@
     transition: all 0.3s ease;
   }
 
-  h2:hover,
-  .show h2 {
-    gap: 1.5rem;
+  h2:hover :global(svg),
+  .show h2 :global(svg) {
+    transform: translateX(1.5rem);
   }
   .show h2 :global(svg) {
-    transform: translateY(-3px) rotate(90deg);
+    transform: translateX(1.5rem) translateY(-3px) rotate(90deg);
   }
 
   .content :global(p) {

@@ -1,3 +1,4 @@
+import { viewport } from '$lib/stores/isMobile.svelte';
 import { onDestroy } from 'svelte';
 
 type ShuffleOptions = {
@@ -96,12 +97,13 @@ class Shuffle {
     // clearTimeout(this.shuffleTimeout);
     this.targetNode.innerText = this.startText;
 
-    if (this.reverseOnMouseLeave) {
+    if (this.reverseOnMouseLeave && window.innerWidth > 780) {
       this.shuffle(this.startText);
     }
   }
   private addHoverListeners() {
     this.node.addEventListener('mouseenter', () => this._mouseEnterFunction());
+
     this.node.addEventListener('mouseleave', () => this._mouseLeaveFunction());
   }
 
