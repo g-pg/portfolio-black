@@ -34,14 +34,6 @@
       loading = false;
     }
   }
-  // fetch("/", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //   body: new URLSearchParams(formData).toString(),
-  // })
-  //   .then(() => console.log("Form successfully submitted"))
-  //   .catch((error) => alert(error));
-  // }
 </script>
 
 <div class="page-wrapper container">
@@ -59,7 +51,7 @@
           Obrigado! Vou responder assim que possível :)
         </p>
       {:else}
-        <form name="contact" onsubmit={handleSubmit} data-netlify="true" class:loading>
+        <form name="contact" method="POST" onsubmit={handleSubmit} data-netlify="true" class:loading>
           <input type="text" name="name" placeholder="Nome" maxlength="50" />
           <input type="email" name="email" placeholder="Email" maxlength="50" />
           <textarea name="message" id="" minlength="10" placeholder="Mensagem" maxlength="1000"></textarea>
