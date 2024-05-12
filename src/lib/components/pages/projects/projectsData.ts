@@ -10,16 +10,18 @@ import HubDesktopVideo from '$lib/assets/projects/axon-hub/desktop-video.mp4';
 
 import OldPortfolioDesktopImage from '$lib/assets/projects/old-portfolio/desktop.png';
 import OldPortfolioMobileImage from '$lib/assets/projects/old-portfolio/mobile.png';
+
 export type Project = {
   className: string;
   shortName: string;
   fullName: string;
   mainColor: string;
   type?: string;
+  filterTools: ProjectFilterTool[];
   texts: {
     company?: string;
     roles: string[];
-    tools?: string[];
+    tools: string[];
     description: string;
   };
   thumbnail: string;
@@ -37,6 +39,28 @@ export type Project = {
   };
 };
 
+export const projectTools = [
+  // 'Javascript',
+  'Typescript',
+  // 'HTML',
+  // 'CSS',
+  // 'SASS',
+  'GSAP',
+  // 'Vite',
+  'Svelte',
+  'SvelteKit',
+  'React',
+  'Next',
+  // 'Figma',
+  'Mongo',
+  'SQL',
+  // 'Prisma',
+  'Node',
+  // 'Docker',
+] as const;
+
+export type ProjectFilterTool = (typeof projectTools)[number];
+
 export const projects: Project[] = [
   {
     className: 'axon',
@@ -44,10 +68,11 @@ export const projects: Project[] = [
     fullName: 'Axon Technology',
     mainColor: '#008c6b',
     type: 'website',
+    filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node'],
     texts: {
       company: 'Axon Technology',
       roles: ['Desenvolvedor', 'Co-designer'],
-      tools: ['TypeScript', 'Node.js', 'SvelteKit'],
+      tools: ['Typescript', 'Node', 'SvelteKit'],
       description: `Landing page da Axon Technology, empresa que vende soluções tecnológicas para a indústria.
         <br/>
         <br/>
@@ -76,10 +101,11 @@ export const projects: Project[] = [
     fullName: 'Muvi',
     mainColor: '#f72585',
     type: 'service',
+    filterTools: ['Typescript', 'Node', 'Prisma', 'Mongo', 'React', 'Next'],
     texts: {
       company: 'Projeto pessoal',
       roles: ['Desenvolvedor full stack', 'Designer'],
-      tools: ['NextJS', 'NextAuth', 'Prisma', 'Mongo'],
+      tools: ['Next', 'NextAuth', 'Prisma', 'Mongo'],
       description: `Muvi (que eu decidi chamar assim porque o nome era curto e legal o suficiente para soar como uma marca) é uma daquelas aplicações baseadas em listas de usuário, feita nos meus primeiros meses de estudo.
       <br/><br/>
        O usuário pode criar uma conta para registrar os filmes que já assistiu e aqueles que quer assistir. Os dados dos filmes são providenciados pela TMDB, e os dados específicos da aplicação, como usuários e suas listas, são guardados um banco de dados Mongo.
@@ -108,10 +134,11 @@ export const projects: Project[] = [
     fullName: 'Connect',
     mainColor: '#008c6b',
     type: 'dashboard',
+    filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node', 'SQL'],
     texts: {
       company: 'Axon Technology',
       roles: ['Desenvolvedor front-end', 'Desenvolvedor back-end (secundário)', 'Co-designer'],
-      tools: ['SvelteKit', 'TypeScript', 'NodeJs', 'SQL'],
+      tools: ['SvelteKit', 'Typescript', 'Node', 'SQL'],
       description: `O Connect, carro-chefe da Axon Technology, é um dispositivo IIOT que captura dados de desempenho de máquinas industriais. O meu papel é desenvolver a interface da aplicação, criar gráficos e outros meios de visualização de dados. Ocasionalmente, participo do desenvolvimento do backend, produzindo ou auxiliando a criação de novas features.
       <br/><br/>
         Por tratar-se de uma aplicação industrial, que frequentemente é mostrada em TVs ou telões, optei por utilizar elementos grandes e cores vivas e facilmente distinguíveis para identificar propriedades como turnos de trabalho e status de máquinas. 
@@ -135,10 +162,11 @@ export const projects: Project[] = [
     fullName: 'Axon Hub',
     mainColor: 'white',
     type: 'user manager',
+    filterTools: ['SvelteKit', 'Svelte', 'Typescript'],
     texts: {
       company: 'Axon Technology',
       roles: ['Desenvolvedor front-end', 'Designer (secundário)'],
-      tools: ['TypeScript', 'SvelteKit'],
+      tools: ['Typescript', 'SvelteKit'],
       description: `O Axon Hub é a central de aplicações da Axon. Como cada aplicação carrega a sua identidade, o visual da central precisava refletir mais a empresa do que um produto específico.
         <br/><br/>
         Em relação ao desenvolvimento do front-end, trata-se de uma aplicação completa para o gerenciamento de usuários: tabelas para visualização, telas de cadastro, edição e configurações de cada aplicação.
@@ -163,10 +191,11 @@ export const projects: Project[] = [
     fullName: 'Antigo portfólio',
     mainColor: 'white',
     type: 'website',
+    filterTools: ['Next', 'Typescript', 'Node', 'React'],
     texts: {
       company: 'Projeto pessoal',
       roles: ['Desenvolvedor', 'Designer'],
-      tools: ['TypeScript', 'NextJS'],
+      tools: ['Next', 'Typescript'],
       description: `
       Meu primeiro portfólio, do início da minha carreira. Simples, simples, simples, mas tenho um tremendo orgulho dele, porque ele contém algumas das coisas que gosto em uma página, como transições suaves e interações inesperadas (já tentou usar os controles de janela do prompt na Hero?). 
       <br><br>

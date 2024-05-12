@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { fade, fly } from 'svelte/transition';
   import ScrollMessage from '../../nav/ScrollMsg.svelte';
-  import { projects, type Project as ProjectType } from './projectsData';
+  import { type Project } from './projectsData';
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
   import { onMount } from 'svelte';
   import gsap from 'gsap';
@@ -11,12 +12,18 @@
   import { preload } from '$lib/utils/preload';
   import { getRandomNumber } from '$lib/utils/randomNum';
 
+  type Props = {
+    projects: Project[];
+  };
+  let { projects }: Props = $props();
+
   const viewport = checkViewport();
   let pageTitle: HTMLElement;
 
-  let selectedProject: ProjectType | null = $state(null);
+  let selectedProject: Project | null = $state(null);
   let showProjectView = $state(false);
 
+  let projectsTl: gsap.core.Timeline;
   onMount(() => {
     projects.forEach(project => {
       if (project.videos) {
@@ -29,23 +36,6 @@
         preload(project.images?.desktop ?? '');
       }
     });
-    const tl = gsap.timeline();
-    tl.to('.project', {
-      y: (_i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
-    });
-
-    ScrollTrigger.create({
-      animation: tl,
-      trigger: '#projects-section',
-      scrub: true,
-    });
-
-    projectsEl = gsap.utils.toArray('.project');
-
-    // if (window.innerWidth < 780) {
-    bubbleGrowOnScroll(projectsEl);
-    // }
-
     gsap.fromTo(
       pageTitle,
       { opacity: 0 },
@@ -62,8 +52,32 @@
         onStart: () => textShuffle(pageTitle, { playOn: ['load'], duration: 0.8, speed: 0.06 }) as any,
       }
     );
+
+    createProjectsAnimation();
   });
 
+  $effect(() => {
+    if (projects) {
+      projectsTl.kill();
+      createProjectsAnimation();
+    }
+  });
+
+  function createProjectsAnimation() {
+    projectsTl = gsap.timeline();
+    projectsTl.to('.project', {
+      y: (_i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+    });
+
+    ScrollTrigger.create({
+      animation: projectsTl,
+      trigger: '#projects-section',
+      scrub: true,
+    });
+
+    projectsEl = gsap.utils.toArray('.project');
+    bubbleGrowOnScroll(projectsEl);
+  }
   function bubbleGrowOnScroll(projects: HTMLElement[]) {
     const grow = gsap.fromTo(projects, { scale: 0.5 }, { scale: 1, stagger: 0.5, duration: 0.5, ease: 'ease' });
 
@@ -95,8 +109,8 @@
   }
 
   function floatAround() {
-    xForce = lerp(xForce, 0, 0.16);
-    yForce = lerp(yForce, 0, 0.16);
+    xForce = lerp(xForce, 0, 0.15);
+    yForce = lerp(yForce, 0, 0.15);
 
     projectsEl.forEach((el, i) => {
       const { left, right, top, bottom } = el.getBoundingClientRect();
@@ -109,14 +123,20 @@
       }
 
       if (i % 3 === 0) {
-        gsap.set(el, { x: `+=${xForce * mouseMovementSpeed * 0.5}`, y: `+=${yForce * mouseMovementSpeed}` });
+        gsap.set(el, {
+          x: `+=${xForce * mouseMovementSpeed * 0.5}`,
+          y: `+=${yForce * mouseMovementSpeed}`,
+        });
       } else if (i % 2 === 0) {
         gsap.set(el, {
-          x: `+=${xForce * mouseMovementSpeed}`,
+          x: `+=${xForce * mouseMovementSpeed * 0.8}`,
           y: `+=${yForce * mouseMovementSpeed}`,
         });
       } else {
-        gsap.set(el, { x: `+=${xForce * mouseMovementSpeed * 0.25} `, y: `+=${yForce * mouseMovementSpeed}` });
+        gsap.set(el, {
+          x: `+=${xForce * mouseMovementSpeed * 0.25} `,
+          y: `+=${yForce * mouseMovementSpeed}`,
+        });
       }
     });
 
@@ -140,9 +160,9 @@
   {/if}
 
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="projects-wrapper" onmousemove={handleMouseMovement}>
+  <div class="projects-wrapper" onmousemove={handleMouseMovement} id="projects">
     {#each projects as p, i}
-      <div class="project {p.className}" data-speed="0.3">
+      <div class="project {p.className}" data-speed="0.3" transition:fade={{ opacity: 0, duration: 300 }}>
         <button
           class="project-btn"
           data-speed="0.2"
@@ -200,7 +220,7 @@
     column-gap: 0.8rem;
     place-items: center;
     position: relative;
-    max-width: 1920px;
+    /* max-width: 1920px; */
     margin-inline: auto;
     min-height: 90vh;
     /* border: 1px solid red; */
@@ -218,7 +238,7 @@
       filter 0.3s ease,
       background 0.3s ease,
       border 0.5s ease,
-      scale 0.5s ease;
+      scale 0.5s ease !important;
     /* color: var(--cl-bg); */
     text-transform: uppercase;
     aspect-ratio: 1;
@@ -226,8 +246,18 @@
     font-size: 0.8rem;
     border: 2px solid white;
     font-family: var(--overpass);
+    animation: grow 0.3s ease;
   }
 
+  @keyframes grow {
+    0% {
+      scale: 0;
+    }
+
+    100% {
+      scale: 1;
+    }
+  }
   .project-btn {
     width: 100%;
     height: 100%;
@@ -246,7 +276,7 @@
   }
 
   .project.axon {
-    left: 16%;
+    left: 25%;
     top: 0;
     height: 150px;
     width: 150px;
@@ -256,7 +286,7 @@
   .project.old_portfolio {
     z-index: 490;
     top: 40%;
-    left: 10%;
+    left: 20%;
     width: 110px;
     height: 110px;
     /* filter: blur(1px); */
@@ -272,7 +302,7 @@
 
   .project.connect {
     z-index: 510;
-    top: 0;
+    top: 2%;
     right: 30%;
     width: 180px;
     height: 180px;

@@ -2,11 +2,14 @@
   import '$lib/styles/reset.css';
   import '$lib/styles/globals.css';
   import SocialLabel from '$lib/components/nav/SocialLabel.svelte';
+  import { page } from '$app/stores';
 
   let { children } = $props();
 </script>
 
-<SocialLabel />
+{#if $page.url.pathname !== '/contact'}
+  <SocialLabel />
+{/if}
 {@render children()}
 
 <style>

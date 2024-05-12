@@ -29,7 +29,7 @@
     <p>/g-pg</p>
   </a>
 
-  <a class="mail" href="https://github.com/g-pg" target="_blank">
+  <a class="mail" href="/contact">
     <MailIcon />
     <p>gabrielpgusso<br />@gmail.com</p>
   </a>
@@ -55,6 +55,8 @@
     z-index: 999;
     transition: all 0.5s ease;
     /* width: 120px; */
+    /* background-image: (circle at 50% 50%, #19191950, #0000000f); */
+    background: rgb(18, 18, 18);
   }
   a {
     transition: all 0.2s ease;

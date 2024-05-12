@@ -4,6 +4,8 @@
   import CardsIcon from '~icons/tabler/cards';
 
   import MeIcon from '~icons/tabler/user-question';
+
+  import MailIcon from '~icons/bx/envelope';
 </script>
 
 {#snippet icon(href: string, name: string, icon: any)}
@@ -32,6 +34,7 @@
     <div class="icons-wrapper fly">
       {@render icon('/projects', 'Projetos', CardsIcon)}
       {@render icon('/about', 'Sobre', MeIcon)}
+      {@render icon('/contact', 'Contato', MailIcon)}
     </div>
   </main>
   <p class="location fly">Curitiba, Brasil.</p>

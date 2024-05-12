@@ -1,30 +1,20 @@
 <script lang="ts">
+  import { generateTippy } from '$lib/utils/tippy';
   import { fly } from 'svelte/transition';
   import PlusIcon from '~icons/lucide/plus';
   import InfiniteIcon from '~icons/bx/infinite';
   import { onMount } from 'svelte';
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+  import { projectTools, type ProjectFilterTool } from './projectsData';
+  import ResetIcon from '~icons/material-symbols/refresh-rounded';
+  type Props = {
+    filterProjects: (tool: ProjectFilterTool) => void;
+    resetProjects: () => void;
+    filtered: boolean;
+  };
 
-  const tools = [
-    'Javascript',
-    'Typescript',
-    'HTML',
-    'CSS',
-    'SASS',
-    'GSAP',
-    'Vite',
-    'Svelte',
-    'SvelteKit',
-    'React',
-    'Next',
-    'Figma',
-    'Mongo',
-    'SQL',
-    'Prisma',
-    'Node',
-    'Docker',
-  ];
+  let { filterProjects, resetProjects, filtered }: Props = $props();
 
   let plusIcon: HTMLElement;
   let rotatePlusIcon = $state(true);
@@ -36,7 +26,7 @@
     const tl = gsap.timeline();
 
     tl.fromTo(
-      '.tool',
+      '.enter-animation',
       {
         opacity: 0,
         x: -20,
@@ -44,7 +34,8 @@
       {
         opacity: 1,
         x: 0,
-        stagger: 0.05,
+        stagger: 0.03,
+        ease: 'circ.inOut',
       }
     );
 
@@ -65,33 +56,35 @@
 </script>
 
 {#snippet plus()}
-  {#if showPlus}
-    <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div class="plus-wrapper" class:showPlus class:rotate={rotatePlusIcon}>
     <span
-      class="tool plus"
-      class:rotate={rotatePlusIcon}
+      class="tool plus filter-btn enter-animation"
       bind:this={plusIcon}
-      onmouseenter={() => (showPlus = false)}
-      onmouseleave={() => (showPlus = true)}><PlusIcon /></span>
-  {:else}
+      in:fly={{ y: 20, opacity: 0, duration: 300 }}><PlusIcon /></span>
+
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <span
       in:fly={{ y: 20, opacity: 0, duration: 300 }}
-      class="tool infinite"
+      class="tool infinite filter-btn enter-animation"
       bind:this={plusIcon}
       onmouseleave={() => {
         showPlus = true;
         rotatePlusIcon = true;
       }}><InfiniteIcon /></span>
-  {/if}
+  </div>
 {/snippet}
 
 <div class="tools-wrapper">
-  {#each tools as tool, i}
-    <span class="tool">{tool}</span>
+  {#each projectTools as tool, i}
+    <button class="tool enter-animation" onclick={() => filterProjects(tool as ProjectFilterTool)}>{tool}</button>
   {/each}
 
-  {@render plus()}
+  <div class="controls-wrapper">
+    {@render plus()}
+
+    <!-- <button class="plus tool reset-btn filter-btn enter-animation" onclick={resetProjects}><ResetIcon /></button> -->
+  </div>
 </div>
 
 <style>
@@ -108,25 +101,91 @@
     text-transform: uppercase;
   }
 
-  .tools-wrapper span {
-    line-height: 1.3rem;
+  .tool {
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .tool:hover:not(.filter-btn) {
+    transform: translateY(-5px) !important;
+  }
+  .controls-wrapper {
+    width: 100%;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-inline: auto;
+    /* border: 1px solid red; */
+    gap: 0.5rem;
+    color: var(--cl-text-low);
   }
 
   .rotate {
     animation: 1s cubic-bezier(0.27, 0.53, 0.94, 1.06) rotate forwards;
   }
-  .plus,
-  .infinite {
+
+  .plus-wrapper {
     /* animation: 1s ease rotate infinite; */
 
     /* aspect-ratio: 1; */
     height: 28.8px;
     width: 28.8px;
     font-size: 1.5rem;
+    position: relative;
+  }
+
+  .infinite,
+  .plus {
+    top: 0;
+    left: 0;
+    position: absolute;
+    color: var(--cl-grey-900);
+    transition: all 0.2s ease;
   }
 
   .infinite {
-    color: var(--cl-grey-900);
+    opacity: 0 !important;
+    transform: translateY(20px);
+  }
+
+  .plus-wrapper:hover .plus {
+    opacity: 0 !important;
+    transform: translateY(-20px);
+  }
+
+  .plus-wrapper:hover .infinite {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  .plus-wrapper .plus {
+    opacity: 1 !important;
+    /* animation: fly 0.5 ease forwards; */
+    transform: translateY(0px) !important;
+  }
+
+  @keyframes fly {
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .reset-btn :global(svg) {
+    transition: all 0.3s ease;
+  }
+  .reset-btn:hover :global(svg) {
+    transform: rotate(45deg);
+  }
+
+  .reset-btn:focus-within :global(svg) {
+    /* transform: scale(0.8); */
   }
 
   @keyframes rotate {
@@ -140,6 +199,9 @@
   }
 
   @media (max-width: 768px) {
+    .reset-btn {
+      display: none;
+    }
     .tools-wrapper {
       gap: 0.8rem;
     }

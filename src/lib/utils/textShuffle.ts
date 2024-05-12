@@ -70,6 +70,7 @@ class Shuffle {
     if (options?.targetNode) {
       this.differentNodes = true;
     }
+
     if (this.playOn.includes('load')) {
       setTimeout(() => {
         this.shuffle();
@@ -173,7 +174,7 @@ class Shuffle {
     const startClearingTm = setTimeout(
       () => {
         startClearing = true;
-        const countDownTimer = this.duration * 0.5 * 100;
+        const countDownTimer = this.duration * 0.4 * 100;
         const int = setInterval(() => countDown++, countDownTimer);
       },
       this.duration * 0.5 * 1000

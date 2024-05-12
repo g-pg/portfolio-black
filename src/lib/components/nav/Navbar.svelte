@@ -1,14 +1,14 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { createNavState, navState } from '$lib/stores/navState.svelte';
+  import { navState } from '$lib/stores/navState.svelte';
   import { blockScroll } from '$lib/utils/blockScroll';
   import { clickOutside } from '$lib/utils/clickOutside';
   import { textShuffle } from '$lib/utils/textShuffle';
   import gsap from 'gsap';
   import { onMount } from 'svelte';
   import ArrowLeft from '~icons/mynaui/arrow-long-left';
-  import ArrowRight from '~icons/mynaui/arrow-long-right';
+  import ArrowBtn from '../buttons/ArrowBtn.svelte';
 
   let showNav = $state(false);
 
@@ -20,7 +20,7 @@
         opacity: 0,
       },
       {
-        delay: 0.4,
+        delay: 0.3,
         stagger: 0.1,
         // duration: 0.3,
         x: 0,
@@ -100,10 +100,17 @@
             </li>
 
             <li>
-              <a href="/contact" class="contact-link" onclick={handleNavigate}
+              <ArrowBtn
+                text="Fale comigo"
+                direction="right"
+                onclick={handleNavigate}
+                href="/contact"
+                finalGap={36}
+                style="color: var(--cl-text)" />
+              <!-- <a href="/contact" class="contact-link" onclick={handleNavigate}
                 ><span use:textShuffle={{ playOn: ['hover'], duration: 0.3 }}>Fale comigo</span>
                 <ArrowRight font-size="2rem" color="var(--cl-low-text)" />
-              </a>
+              </a> -->
             </li>
           </ul>
         </div>
@@ -231,7 +238,7 @@
     right: -100%;
     /* right: -50%; */
     /* right: -100%; */
-    transition: all 0.6s ease;
+    transition: all 0.5s ease;
     text-transform: uppercase;
     padding: 3rem 5rem 1rem 1rem;
     /* padding-top: 5rem; */
@@ -273,7 +280,7 @@
     color: var(--cl-text-low);
   }
 
-  .contact-link {
+  /* .contact-link {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -283,7 +290,7 @@
 
   .contact-link:hover {
     gap: 3rem;
-  }
+  } */
   @media (max-width: 780px) {
     .breadcrumb {
       display: none;

@@ -20,7 +20,7 @@ export function createNavState() {
 
       setTimeout(() => {
         navOrigin = false;
-      }, 500);
+      }, 400);
     },
   };
 }

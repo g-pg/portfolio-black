@@ -29,8 +29,6 @@
     });
   });
 
-  $effect(() => {});
-
   let resize = $state(0);
   let timeout = $state(0);
 
