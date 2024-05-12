@@ -54,7 +54,7 @@
       htmlText: `<p>Em colegas, o interesse genuíno. Nada me satisfaz mais que conversar e trilhar um caminho com alguém verdadeiramente interessado nos mesmos objetivos.
       <br/><br/>
       Em um time, a comunicação. Acima do conhecimento técnico.
-        Aprendi, durante a faculdade que, profissional ou não, qualquer um pode
+        Aprendi durante a faculdade que, profissional ou não, qualquer um pode
         aprender qualquer coisa. Mas uma ideia não se realiza quando não é bem expressada.</p>`,
     },
     {
@@ -65,6 +65,16 @@
         <br/><br/>
         </p>`,
     },
+    // {
+    //   title: 'Que ferramentas eu utilizo?',
+    //   htmlText: `
+    //   <p>
+
+    //     <br/><br/>
+    //     Se os problemas estão escondidos, eu os procuro: como melhorar a experiência do usuário? Como otimizar esse algoritmo? Qual é a cereja do bolo?
+    //     <br/><br/>
+    //     </p>`,
+    // },
   ];
 </script>
 
