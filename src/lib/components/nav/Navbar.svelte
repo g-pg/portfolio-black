@@ -9,6 +9,7 @@
   import { onMount } from 'svelte';
   import ArrowLeft from '~icons/mynaui/arrow-long-left';
   import ArrowBtn from '../buttons/ArrowBtn.svelte';
+  import { scrollDirection } from '$lib/utils/scrollDirection';
 
   let showNav = $state(false);
 
@@ -62,23 +63,23 @@
     handleOpenNav();
   }
 
-  // let faded = $state(false);
-  // function handleScroll(e: any) {
-  //   const direction = e.detail;
+  let faded = $state(false);
+  function handleScroll(e: any) {
+    const direction = e.detail;
 
-  //   if (direction === 'down') {
-  //     faded = true;
-  //   } else {
-  //     faded = false;
-  //   }
-  // }
+    if (direction === 'down') {
+      faded = true;
+    } else {
+      faded = false;
+    }
+  }
 </script>
 
 <div>
   <div class="container bar-wrapper">
     {#if $page.url.pathname !== '/'}
       <nav>
-        <div class="breadcrumb">
+        <div class="breadcrumb" class:faded use:scrollDirection ondirection={handleScroll}>
           <button
             class="breadcrumb-btn"
             onclick={() => goto('/')}
