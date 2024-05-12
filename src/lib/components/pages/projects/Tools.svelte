@@ -41,7 +41,7 @@
 
     ScrollTrigger.create({
       animation: tl,
-      toggleActions: 'play reverse restart reverse',
+      // toggleActions: 'play reverse restart reverse',
       trigger: '.tools-wrapper',
       start: 'top center',
 
@@ -92,9 +92,15 @@
   {/each}
 
   <div class="controls-wrapper">
-    {@render plus()}
-
-    <button class:show={filteredTool} class="reset-btn enter-animation" onclick={resetProjects}><ResetIcon /></button>
+    {#if filteredTool}
+      <button
+        in:fly={{ y: 20, opacity: 0, duration: 300 }}
+        class:show={filteredTool}
+        class="reset-btn enter-animation"
+        onclick={resetProjects}><ResetIcon /></button>
+    {:else}
+      {@render plus()}
+    {/if}
   </div>
 </div>
 
@@ -209,7 +215,7 @@
 
   @media (max-width: 768px) {
     .reset-btn {
-      display: none;
+      /* display: none; */
     }
     .tools-wrapper {
       gap: 0.8rem;

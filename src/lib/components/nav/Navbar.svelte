@@ -61,6 +61,17 @@
     navState.setNavOrigin();
     handleOpenNav();
   }
+
+  // let faded = $state(false);
+  // function handleScroll(e: any) {
+  //   const direction = e.detail;
+
+  //   if (direction === 'down') {
+  //     faded = true;
+  //   } else {
+  //     faded = false;
+  //   }
+  // }
 </script>
 
 <div>
@@ -293,7 +304,11 @@
   } */
   @media (max-width: 780px) {
     .breadcrumb {
-      display: none;
+      transition: all 0.3s ease;
+    }
+    .breadcrumb.faded {
+      opacity: 0;
+      transform: translateY(-30px);
     }
   }
 </style>

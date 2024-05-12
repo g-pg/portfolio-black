@@ -11,12 +11,12 @@
   function filterProjects(tool: ProjectFilterTool) {
     // if (viewport.isMobile) return;
 
-    filteredProjects = projects.filter(project => {
-      if (project.filterTools?.includes(tool)) {
-        return true;
-      }
-    });
+    if (filteredTool === tool) {
+      resetProjects();
+      return;
+    }
 
+    filteredProjects = projects.filter(project => project.filterTools?.includes(tool));
     filteredTool = tool;
   }
 

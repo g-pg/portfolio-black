@@ -1,6 +1,5 @@
-let lastPos = 0;
-
 export function scrollDirection(node: HTMLElement) {
+  let lastPos = 0;
   document.addEventListener('scroll', sendDirection);
 
   function sendDirection(e: any) {
@@ -20,5 +19,10 @@ export function scrollDirection(node: HTMLElement) {
     }
   }
 
+  return {
+    destroy() {
+      document.removeEventListener('scroll', sendDirection);
+    },
+  };
   // document.addEventListener('scroll',)
 }
