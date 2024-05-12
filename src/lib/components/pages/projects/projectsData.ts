@@ -45,7 +45,7 @@ export const projectTools = [
   // 'HTML',
   // 'CSS',
   // 'SASS',
-  'GSAP',
+  // 'GSAP',
   // 'Vite',
   'Svelte',
   'SvelteKit',

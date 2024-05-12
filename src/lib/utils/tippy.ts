@@ -4,7 +4,7 @@ import '$lib/styles/tippy.css';
 export function generateTippy(node: HTMLElement, options: Props | { content: string }) {
   if (!options.content) return;
 
-  const newOptions = { ...options, touch: 'hold' } as Props;
+  const newOptions = { touch: 'hold', allowHTML: true, theme: 'black', ...options } as Props;
 
   const tip = tippy(node, newOptions);
 

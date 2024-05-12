@@ -11,10 +11,10 @@
   type Props = {
     filterProjects: (tool: ProjectFilterTool) => void;
     resetProjects: () => void;
-    filtered: boolean;
+    filteredTool: string;
   };
 
-  let { filterProjects, resetProjects, filtered }: Props = $props();
+  let { filterProjects, resetProjects, filteredTool }: Props = $props();
 
   let plusIcon: HTMLElement;
   let rotatePlusIcon = $state(true);
@@ -53,11 +53,21 @@
       },
     });
   });
+
+  $inspect(filteredTool);
 </script>
 
 {#snippet plus()}
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="plus-wrapper" class:showPlus class:rotate={rotatePlusIcon}>
+  <div
+    class="plus-wrapper"
+    class:showPlus
+    class:rotate={rotatePlusIcon}
+    use:generateTippy={{
+      content: 'Estas são as minhas ferramentas <b>principais</b>. Experimente filtrar por elas!',
+      placement: 'bottom',
+      arrow: false,
+    }}>
     <span
       class="tool plus filter-btn enter-animation"
       bind:this={plusIcon}
@@ -66,7 +76,7 @@
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <span
       in:fly={{ y: 20, opacity: 0, duration: 300 }}
-      class="tool infinite filter-btn enter-animation"
+      class="infinite filter-btn enter-animation"
       bind:this={plusIcon}
       onmouseleave={() => {
         showPlus = true;
@@ -83,7 +93,7 @@
   <div class="controls-wrapper">
     {@render plus()}
 
-    <!-- <button class="plus tool reset-btn filter-btn enter-animation" onclick={resetProjects}><ResetIcon /></button> -->
+    <button class:show={filteredTool} class="reset-btn enter-animation" onclick={resetProjects}><ResetIcon /></button>
   </div>
 </div>
 
@@ -115,11 +125,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-inline: auto;
-    /* border: 1px solid red; */
     gap: 0.5rem;
-    color: var(--cl-text-low);
+    font-size: 1.5rem;
+  }
+
+  .reset-btn {
+    padding: 0;
+    margin: 0;
+    height: 25px;
+    width: 25px;
+    font-size: 1.4rem;
+    opacity: 0 !important;
+    transition: all 0.5s ease;
+  }
+
+  .reset-btn.show {
+    opacity: 1 !important;
+  }
+  .reset-btn :global(svg) {
+    transition: all 0.3s ease;
+  }
+  .reset-btn:hover :global(svg) {
+    transform: rotate(45deg);
   }
 
   .rotate {
@@ -127,12 +155,9 @@
   }
 
   .plus-wrapper {
-    /* animation: 1s ease rotate infinite; */
-
-    /* aspect-ratio: 1; */
     height: 28.8px;
     width: 28.8px;
-    font-size: 1.5rem;
+
     position: relative;
   }
 
@@ -164,28 +189,6 @@
     opacity: 1 !important;
     /* animation: fly 0.5 ease forwards; */
     transform: translateY(0px) !important;
-  }
-
-  @keyframes fly {
-    0% {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  .reset-btn :global(svg) {
-    transition: all 0.3s ease;
-  }
-  .reset-btn:hover :global(svg) {
-    transform: rotate(45deg);
-  }
-
-  .reset-btn:focus-within :global(svg) {
-    /* transform: scale(0.8); */
   }
 
   @keyframes rotate {
