@@ -7,7 +7,7 @@
   let { children } = $props();
 </script>
 
-<title>Gabriel Gusso - Portfolio</title>
+<title>Gabriel Gusso - Portfólio</title>
 {#if $page.url.pathname !== '/contact'}
   <SocialLabel />
 {/if}
