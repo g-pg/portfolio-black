@@ -53,9 +53,9 @@
       {:else}
         <form name="contact" method="POST" onsubmit={handleSubmit} data-netlify="true" class:loading>
           <input type="hidden" name="form-name" value="contact" />
-          <input type="text" name="name" placeholder="Nome" maxlength="50" />
-          <input type="email" name="email" placeholder="Email" maxlength="50" />
-          <textarea name="message" id="" minlength="10" placeholder="Mensagem" maxlength="1000"></textarea>
+          <input type="text" name="name" placeholder="Nome" maxlength="50" required />
+          <input type="email" name="email" placeholder="Email" maxlength="50" required />
+          <textarea name="message" id="" minlength="10" placeholder="Mensagem" required maxlength="1000"></textarea>
           <div class="btn-wrapper">
             <ArrowBtn text="Enviar" direction="right" type="submit" finalGap={36} />
             <span class="error-msg"
