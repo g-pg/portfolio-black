@@ -9,7 +9,7 @@
   let filteredTool = $state('');
 
   function filterProjects(tool: ProjectFilterTool) {
-    if (viewport.isMobile) return;
+    // if (viewport.isMobile) return;
 
     filteredProjects = projects.filter(project => {
       if (project.filterTools?.includes(tool)) {
