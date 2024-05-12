@@ -49,7 +49,8 @@
     justify-content: flex-start; */
     width: fit-content;
     gap: 1rem;
-    font-size: 1.3rem;
+    font-size: clamp(1rem, 5vw, 1.3rem);
+    /* font-size: 1.3rem; */
   }
 
   h2 :global(svg) {
