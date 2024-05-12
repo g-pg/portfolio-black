@@ -61,10 +61,10 @@
 
   h2:hover :global(svg),
   .show h2 :global(svg) {
-    transform: translateX(1.5rem);
+    transform: translateX(1rem) translateY(-3px);
   }
   .show h2 :global(svg) {
-    transform: translateX(1.5rem) translateY(-3px) rotate(90deg);
+    transform: translateX(1rem) translateY(-3px) rotate(90deg);
   }
 
   .content :global(p) {
