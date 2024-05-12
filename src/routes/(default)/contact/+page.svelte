@@ -52,6 +52,7 @@
         </p>
       {:else}
         <form name="contact" method="POST" onsubmit={handleSubmit} data-netlify="true" class:loading>
+          <input type="hidden" name="contact" value="contact" />
           <input type="text" name="name" placeholder="Nome" maxlength="50" />
           <input type="email" name="email" placeholder="Email" maxlength="50" />
           <textarea name="message" id="" minlength="10" placeholder="Mensagem" maxlength="1000"></textarea>
