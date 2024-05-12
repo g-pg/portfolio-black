@@ -92,7 +92,7 @@ export const projects: Project[] = [
       desktop: AxonWebsiteDesktopVideo,
     },
     links: {
-      url: 'private',
+      url: 'https://axontechnology.com.br/',
     },
   },
   {
@@ -181,9 +181,9 @@ export const projects: Project[] = [
     videos: {
       desktop: HubDesktopVideo,
     },
-    links: {
-      url: 'private',
-    },
+    // links: {
+    //   url: 'private',
+    // },
   },
   {
     className: 'old_portfolio',
