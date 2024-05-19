@@ -28,8 +28,8 @@
     });
   });
 
-  let resize = $state(0);
-  let timeout = $state(0);
+  // let resize = $state(0);
+  // let timeout = $state(0);
 
   // onMount(() => {
   //   window.addEventListener('resize', () => {
