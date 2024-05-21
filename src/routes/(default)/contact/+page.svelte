@@ -36,6 +36,9 @@
   }
 </script>
 
+<svelte:head>
+  <title>Gabriel Gusso - Contato</title>
+</svelte:head>
 <div class="page-wrapper container">
   <div class="cols-wrapper">
     <div class="form-col">

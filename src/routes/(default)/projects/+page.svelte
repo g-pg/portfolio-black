@@ -26,6 +26,9 @@
   }
 </script>
 
+<svelte:head>
+  <title>Gabriel Gusso - Projetos</title>
+</svelte:head>
 <div class="page-wrapper">
   <div class="container">
     <Tools {filterProjects} {resetProjects} {filteredTool} />

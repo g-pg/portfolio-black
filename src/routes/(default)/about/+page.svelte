@@ -78,6 +78,9 @@
   ];
 </script>
 
+<svelte:head>
+  <title>Gabriel Gusso - Sobre mim</title>
+</svelte:head>
 <div class="container page-wrapper">
   <div class="content-wrapper" id="about-wrapper">
     {#each items as item, i}
