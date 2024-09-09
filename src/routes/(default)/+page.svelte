@@ -1,10 +1,7 @@
 <script lang="ts">
   import { textShuffle } from '$lib/utils/textShuffle';
-  import { onMount } from 'svelte';
   import CardsIcon from '~icons/tabler/cards';
-
   import MeIcon from '~icons/tabler/user-question';
-
   import MailIcon from '~icons/bx/envelope';
 </script>
 
@@ -12,7 +9,7 @@
   <a
     class={name.toLowerCase()}
     {href}
-    use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: name, duration: 0.5, speed: 0.05}}>
+    use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: name, duration: 0.5, speed: 0.05, }}>
     <svelte:component this={icon} />
   </a>
 {/snippet}

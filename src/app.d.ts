@@ -3,13 +3,19 @@
 import 'unplugin-icons/types/svelte';
 
 declare global {
-	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
-	}
+  namespace svelteHTML {
+    interface HTMLAttributes<T> {
+      onclick_outside?: CompositionEventHandler;
+      ondirection?: CompositionEventHandler;
+    }
+  }
+  namespace App {
+    // interface Error {}
+    // interface Locals {}
+    // interface PageData {}
+    // interface PageState {}
+    // interface Platform {}
+  }
 }
 
 export {};
