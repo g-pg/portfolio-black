@@ -137,7 +137,7 @@ export const projects: Project[] = [
     filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node', 'SQL'],
     texts: {
       company: 'Axon Technology',
-      roles: ['Desenvolvedor front-end', 'Desenvolvedor back-end (secundário)', 'Co-designer'],
+      roles: ['Desenvolvedor full stack', 'Designer'],
       tools: ['SvelteKit', 'Typescript', 'Node', 'SQL'],
       description: `O Connect, carro-chefe da Axon Technology, é um dispositivo IIOT que captura dados de desempenho de máquinas industriais. O meu papel é desenvolver a interface da aplicação, criar gráficos e outros meios de visualização de dados. Ocasionalmente, participo do desenvolvimento do backend, produzindo ou auxiliando a criação de novas features.
       <br/><br/>
