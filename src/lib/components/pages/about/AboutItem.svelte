@@ -44,13 +44,10 @@
     text-transform: uppercase;
     font-weight: 400;
     font-family: var(--overpass);
-    /* display: flex;
-    align-items: center;
-    justify-content: flex-start; */
     width: fit-content;
     gap: 1rem;
     font-size: clamp(1rem, 5vw, 1.3rem);
-    /* font-size: 1.3rem; */
+    opacity: 0;
   }
 
   h2 :global(svg) {
