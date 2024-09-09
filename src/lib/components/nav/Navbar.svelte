@@ -96,7 +96,7 @@
           <span class="burger-line"></span>
         </button>
 
-        {#snippet link(href, text)}
+        {#snippet link(href: string, text: string)}
           <a {href} onclick={handleNavigate} use:textShuffle={{ playOn: ['hover'], duration: 0.4 }}>{text}</a>
         {/snippet}
         <div class="burger-menu">

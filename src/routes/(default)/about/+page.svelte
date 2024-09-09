@@ -1,7 +1,6 @@
 <script lang="ts">
   import BottomNav from '$lib/components/nav/BottomNav.svelte';
   import AboutItem from '$lib/components/pages/about/AboutItem.svelte';
-
   import gsap from 'gsap';
   import { onMount } from 'svelte';
 
