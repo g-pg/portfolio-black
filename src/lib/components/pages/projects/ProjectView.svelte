@@ -102,15 +102,17 @@
   </div>
 {/snippet}
 
-{#snippet projectLinks(type: string, href)}
+{#snippet projectLinks(type: string, href: string)}
   {#if href}
     {#if href === 'private'}
+      {@const SvelteComponent = getIcon(type)}
       <a class="private-link" href={null} use:generateTippy={{ content: 'Oops, este projeto é privado!' }}>
-        <svelte:component this={getIcon(type)} />
+        <SvelteComponent />
       </a>
     {:else}
+      {@const SvelteComponent_1 = getIcon(type)}
       <a {href} target="_blank">
-        <svelte:component this={getIcon(type)} />
+        <SvelteComponent_1 />
       </a>
     {/if}
   {/if}

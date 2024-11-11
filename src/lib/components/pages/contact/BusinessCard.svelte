@@ -3,9 +3,9 @@
   import MailIcon from '~icons/bx/envelope';
   import LinkedinIcon from '~icons/bx/bxl-linkedin';
   import GithubIcon from '~icons/bx/bxl-github';
-  let card: HTMLElement;
-  let glow: HTMLElement;
-  let glowRed: HTMLElement;
+  let card: HTMLElement = $state();
+  let glow: HTMLElement = $state();
+  let glowRed: HTMLElement = $state();
   let bounds: any;
 
   function rotateToMouse(e: MouseEvent) {
@@ -78,8 +78,8 @@
 </script>
 
 <div bind:this={card} class="card">
-  <div class="glow" bind:this={glow} />
-  <div class="glow red" bind:this={glowRed} />
+  <div class="glow" bind:this={glow}></div>
+  <div class="glow red" bind:this={glowRed}></div>
   <div class="card-content">
     <!-- <div class="logo-col">
       <h2>Gabriel Gusso</h2>

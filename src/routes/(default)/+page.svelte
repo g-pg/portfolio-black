@@ -6,11 +6,12 @@
 </script>
 
 {#snippet icon(href: string, name: string, icon: any)}
+  {@const SvelteComponent = icon}
   <a
     class={name.toLowerCase()}
     {href}
     use:textShuffle={{targetNode: document.querySelector('.title-wrapper h2') as HTMLElement, finalText: name, duration: 0.5, speed: 0.05, }}>
-    <svelte:component this={icon} />
+    <SvelteComponent />
   </a>
 {/snippet}
 
