@@ -1,8 +1,18 @@
+<script context="module" lang="ts">
+  export const isFirstVisit = writable(true);
+</script>
+
 <script lang="ts">
   import { textShuffle } from '$lib/utils/textShuffle';
   import CardsIcon from '~icons/tabler/cards';
   import MeIcon from '~icons/tabler/user-question';
   import MailIcon from '~icons/bx/envelope';
+  import { beforeNavigate } from '$app/navigation';
+  import { writable } from 'svelte/store';
+
+  beforeNavigate(() => {
+    isFirstVisit.set(false);
+  });
 </script>
 
 {#snippet icon(href: string, name: string, icon: any)}
@@ -17,25 +27,25 @@
 
 <div class="page-wrapper">
   <main class="container">
-    <div class="title-wrapper fly">
+    <div class={`title-wrapper fly`} style={`${$isFirstVisit ? '' : 'animation-delay: 0.2s'} `}>
       <h1>Gabriel Gusso</h1>
       <span>//</span>
       <h2
         use:textShuffle={{
           playOn: ['hover', 'load'],
           speed: 0.06,
-          duration: 1.6,
+          duration: $isFirstVisit ? 1.6 : 0.8,
         }}>
         Web Developer
       </h2>
     </div>
-    <div class="icons-wrapper fly">
+    <div class={`icons-wrapper fly`} style={`${$isFirstVisit ? '' : 'animation-delay: 0.2s'} `}>
       {@render icon('/projects', 'Projetos', CardsIcon)}
       {@render icon('/about', 'Sobre', MeIcon)}
       {@render icon('/contact', 'Contato', MailIcon)}
     </div>
   </main>
-  <p class="location fly">Curitiba, Brasil.</p>
+  <p class="location fly" style={`${$isFirstVisit ? '' : 'animation-delay: 0.2s'} `}>Curitiba, Brasil.</p>
 </div>
 
 <style>
