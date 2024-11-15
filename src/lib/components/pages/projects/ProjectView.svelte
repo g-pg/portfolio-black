@@ -12,6 +12,8 @@
   import { generateTippy } from '$lib/utils/tippy';
   import Underline from '$lib/components/misc/Underline.svelte';
   import GithubIcon from '~icons/bx/bxl-github';
+
+  type ProjectText = keyof Project['texts'];
   type Props = {
     project: Project;
     showView: boolean;
@@ -68,11 +70,11 @@
 </script>
 
 <!-- <Underline></Underline> -->
-{#snippet info(text)}
-  <h3 class="info-title">{infoTitles[text as  keyof Project['texts']]}</h3>
+{#snippet info(text: ProjectText)}
+  <h3 class="info-title">{infoTitles[text]}</h3>
 
-  {#if Array.isArray(project.texts[text as  keyof Project['texts']])}
-    {#each project.texts[text as keyof Project['texts']] as t}
+  {#if Array.isArray(project.texts[text])}
+    {#each project.texts[text] as t}
       <p>{t}</p>
     {/each}
   {:else}
@@ -127,15 +129,21 @@
       <div class="header">
         <h2>{project?.fullName}</h2>
         <div class="icons">
-          {@render projectLinks('url', project.links?.url)}
-          {@render projectLinks('github', project.links?.github)}
+          {#if project.links}
+            {#if project.links?.url}
+              {@render projectLinks('url', project.links?.url)}
+            {/if}
+            {#if project.links?.github}
+              {@render projectLinks('github', project.links?.github)}
+            {/if}
+          {/if}
         </div>
       </div>
       <div class="content">
         <div class="info-column">
           {#each Object.keys(project.texts) as t}
             <div class="info-wrapper">
-              {@render info(t)}
+              {@render info(t as ProjectText)}
             </div>
           {/each}
         </div>
@@ -237,6 +245,7 @@
 
   .info-column {
     width: 100%;
+    min-width: 500px;
     grid-area: info;
   }
 
@@ -334,6 +343,9 @@
       gap: 4rem;
     }
 
+    .info-column {
+      min-width: auto;
+    }
     .mocks-wrapper {
       position: relative;
       width: fit-content;

@@ -161,7 +161,7 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="projects-wrapper" onmousemove={handleMouseMovement} id="projects">
     {#each projects as p, i}
-      <div class="project {p.className}" data-speed="0.3" transition:fade={{ opacity: 0, duration: 300 }}>
+      <div class="project {p.className}" data-speed="0.3" transition:fade={{ duration: 300 }}>
         <button
           class="project-btn"
           data-speed="0.2"
@@ -313,6 +313,14 @@
     width: 130px;
     height: 130px;
   }
+
+  .project.oito {
+    left: 60%;
+    top: 45%;
+    right: 3rem;
+    width: 210px;
+    height: 210px;
+  }
   @media (max-width: 768px) {
     .projects-wrapper {
       margin-top: 100vh;
@@ -357,6 +365,14 @@
       left: unset;
       top: 45%;
       right: 3rem;
+    }
+
+    .project.oito {
+      left: 10%;
+      top: 30%;
+      right: 3rem;
+      width: 140px;
+      height: 140px;
     }
   }
 </style>

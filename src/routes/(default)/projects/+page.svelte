@@ -2,8 +2,12 @@
   import BottomNav from '$lib/components/nav/BottomNav.svelte';
   import ProjectsGrid from '$lib/components/pages/projects/ProjectsGrid.svelte';
   import Tools from '$lib/components/pages/projects/Tools.svelte';
-  import { projects, type ProjectFilterTool } from '$lib/components/pages/projects/projectsData';
-  import { checkViewport, viewport } from '$lib/stores/isMobile.svelte';
+  import { type ProjectFilterTool } from '$lib/components/pages/projects/projectsData';
+  import type { PageData } from './$types';
+  // import { checkViewport, viewport } from '$lib/stores/isMobile.svelte';
+
+  let { data }: { data: PageData } = $props();
+  const projects = data.projects;
 
   let filteredProjects = $state(projects);
   let filteredTool = $state('');

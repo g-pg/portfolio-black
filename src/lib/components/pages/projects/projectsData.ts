@@ -7,15 +7,17 @@ import ConnectThumb from '$lib/assets/projects/connect/thumb.webp';
 import ConnectDesktopVideo from '$lib/assets/projects/connect/desktop-video.mp4';
 import ConnectMobile from '$lib/assets/projects/connect/mobile.png';
 import HubDesktopVideo from '$lib/assets/projects/axon-hub/desktop-video.mp4';
-
 import OldPortfolioDesktopImage from '$lib/assets/projects/old-portfolio/desktop.png';
 import OldPortfolioMobileImage from '$lib/assets/projects/old-portfolio/mobile.png';
+import OitoDesktopVideo from '$lib/assets/projects/oito/desktop-video.mp4';
+import OitoMobileImage from '$lib/assets/projects/oito/mobile.webp';
 
 export type Project = {
-  className: string;
   shortName: string;
   fullName: string;
+  className: string;
   mainColor: string;
+  enabled: boolean;
   type?: string;
   filterTools: ProjectFilterTool[];
   texts: {
@@ -66,6 +68,7 @@ export const projects: Project[] = [
     className: 'axon',
     shortName: 'Axon',
     fullName: 'Axon Technology',
+    enabled: true,
     mainColor: '#008c6b',
     type: 'website',
     filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node'],
@@ -99,9 +102,10 @@ export const projects: Project[] = [
     className: 'muvi',
     shortName: 'Muvi',
     fullName: 'Muvi',
+    enabled: true,
     mainColor: '#f72585',
     type: 'service',
-    filterTools: ['Typescript', 'Node', 'Prisma', 'Mongo', 'React', 'Next'],
+    filterTools: ['Typescript', 'Node', 'Mongo', 'React', 'Next'],
     texts: {
       company: 'Projeto pessoal',
       roles: ['Desenvolvedor full stack', 'Designer'],
@@ -132,6 +136,7 @@ export const projects: Project[] = [
     className: 'connect',
     shortName: 'Connect',
     fullName: 'Connect',
+    enabled: true,
     mainColor: '#008c6b',
     type: 'dashboard',
     filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node', 'SQL'],
@@ -160,6 +165,7 @@ export const projects: Project[] = [
     className: 'hub',
     shortName: 'Hub',
     fullName: 'Axon Hub',
+    enabled: true,
     mainColor: 'white',
     type: 'user manager',
     filterTools: ['SvelteKit', 'Svelte', 'Typescript'],
@@ -175,20 +181,15 @@ export const projects: Project[] = [
         `,
     },
     thumbnail: ConnectThumb,
-    // images: {
-    // 	mobile: MuviMobile,
-    // },
     videos: {
       desktop: HubDesktopVideo,
     },
-    // links: {
-    //   url: 'private',
-    // },
   },
   {
     className: 'old_portfolio',
     shortName: 'Portfolio [old]',
     fullName: 'Antigo portfólio',
+    enabled: true,
     mainColor: 'white',
     type: 'website',
     filterTools: ['Next', 'Typescript', 'Node', 'React'],
@@ -197,16 +198,10 @@ export const projects: Project[] = [
       roles: ['Desenvolvedor', 'Designer'],
       tools: ['Next', 'Typescript'],
       description: `
-      Meu primeiro portfólio, do início da minha carreira. Simples, simples, simples, mas tenho um tremendo orgulho dele, porque ele contém algumas das coisas que gosto em uma página, como transições suaves e interações inesperadas (já tentou usar os controles de janela do prompt na Hero?). 
-      <br><br>
-      Deixo-o aqui menos como exemplo do que sei fazer, e mais como registro da minha evolução. 
+      Meu primeiro portfólio. Simples, simples, mas tenho um tremendo orgulho dele.
         `,
     },
     thumbnail: ConnectThumb,
-    // images: {
-    // 	mobile: MuviMobile,
-    // },
-
     images: {
       mobile: OldPortfolioMobileImage,
       desktop: OldPortfolioDesktopImage,
@@ -214,6 +209,33 @@ export const projects: Project[] = [
     links: {
       url: 'https://gpg-portfolio-old.vercel.app/',
       github: 'https://github.com/g-pg/portfolio',
+    },
+  },
+  {
+    className: 'oito',
+    shortName: "Oh! It's That One",
+    fullName: "Oh! It's That One",
+    enabled: true,
+    mainColor: 'white',
+    type: 'website',
+    filterTools: ['Next', 'Typescript', 'Node', 'React'],
+    texts: {
+      company: 'Projeto pessoal',
+      roles: ['Desenvolvedor', 'Designer'],
+      tools: ['Next', 'Typescript'],
+      description: `Um <i>guess the song</i>. Cole uma playlist do YouTube, escolha por quanto tempo cada música vai tocar e quanto tempo você tem até acertar.
+      É um jogo especialmente divertido para conhece a discografia de um arista de trás pra frente.`,
+    },
+    thumbnail: ConnectThumb,
+    images: {
+      mobile: OitoMobileImage,
+    },
+    videos: {
+      desktop: OitoDesktopVideo,
+    },
+    links: {
+      url: 'https://ohitsthatone.vercel.app/',
+      // github: 'https://github.com/g-pg/portfolio',
     },
   },
 ];
