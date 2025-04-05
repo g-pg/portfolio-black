@@ -53,6 +53,4 @@
     z-index: 1;
     margin-top: -2rem;
   }
-  @media (max-width: 780px) {
-  }
 </style>

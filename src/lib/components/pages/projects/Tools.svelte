@@ -61,11 +61,7 @@
     class="plus-wrapper"
     class:showPlus
     class:rotate={rotatePlusIcon}
-    use:generateTippy={{
-      content: 'Estas são as minhas ferramentas <b>principais</b>. Experimente filtrar por elas!',
-      placement: 'bottom',
-      arrow: false,
-    }}>
+    >
     <span
       class="tool plus filter-btn enter-animation"
       bind:this={plusIcon}
@@ -77,8 +73,8 @@
       class="infinite filter-btn enter-animation"
       bind:this={plusIcon}
       onmouseleave={() => {
-        showPlus = true;
-        rotatePlusIcon = true;
+        // showPlus = true;
+        // rotatePlusIcon = true;
       }}><InfiniteIcon /></span>
   </div>
 {/snippet}

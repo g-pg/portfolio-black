@@ -61,8 +61,7 @@
   }
 
   h1,
-  h2,
-  h3 {
+  h2 {
     color: var(--cl-text);
     font-weight: 400;
     font-size: inherit;

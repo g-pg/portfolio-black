@@ -1,16 +1,11 @@
 <script lang="ts">
-  import { textShuffle } from '$lib/utils/textShuffle';
-  import { fly, scale } from 'svelte/transition';
   import type { Project } from './projectsData';
   import CloseIcon from '~icons/material-symbols/cancel-outline-rounded';
   import ExternalLinkIcon from '~icons/tabler/external-link';
   import notebookPicture from '$lib/assets/pictures/notebook-mock.png';
   import phonePicture from '$lib/assets/pictures/phone-mock.png';
-  import { browser } from '$app/environment';
-  import { onMount } from 'svelte';
   import gsap from 'gsap';
   import { generateTippy } from '$lib/utils/tippy';
-  import Underline from '$lib/components/misc/Underline.svelte';
   import GithubIcon from '~icons/bx/bxl-github';
 
   type ProjectText = keyof Project['texts'];
@@ -20,7 +15,6 @@
   };
 
   let { project, showView = $bindable() }: Props = $props();
-  let thumbBtn: HTMLElement;
 
   let infoTitles: { [key in keyof Project['texts']]: string } = {
     company: 'Empresa',

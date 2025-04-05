@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, fly } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import ScrollMessage from '../../nav/ScrollMsg.svelte';
   import { type Project } from './projectsData';
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -8,33 +8,34 @@
   import { textShuffle } from '$lib/utils/textShuffle';
   import { blockScroll } from '$lib/utils/blockScroll';
   import ProjectView from './ProjectView.svelte';
-  import { checkViewport, viewport } from '$lib/stores/isMobile.svelte';
+  import { viewport } from '$lib/stores/isMobile.svelte';
   import { preload } from '$lib/utils/preload';
-  import { getRandomNumber } from '$lib/utils/randomNum';
 
   type Props = {
     projects: Project[];
   };
   let { projects }: Props = $props();
 
-  let pageTitle: HTMLElement;
+  let pageTitle = $state<HTMLElement>()!;
 
   let selectedProject: Project | null = $state(null);
   let showProjectView = $state(false);
 
   let projectsTl: gsap.core.Timeline;
-  onMount(() => {
-    projects.forEach(project => {
-      if (project.videos) {
-        preload(project.videos?.desktop ?? '');
-        preload(project.videos?.mobile ?? '');
-      }
 
-      if (project.images) {
-        preload(project.images?.mobile ?? '');
-        preload(project.images?.desktop ?? '');
-      }
-    });
+  onMount(() => {
+    // projects.forEach(project => {
+    //   if (project.videos) {
+    //     preload(project.videos?.desktop ?? '');
+    //     preload(project.videos?.mobile ?? '');
+    //   }
+
+    //   if (project.images) {
+    //     preload(project.images?.mobile ?? '');
+    //     preload(project.images?.desktop ?? '');
+    //   }
+    // });
+
     gsap.fromTo(
       pageTitle,
       { opacity: 0 },
@@ -144,6 +145,20 @@
 
   let resize = $state(0);
   let wrapperEl: HTMLElement;
+
+  const preloadedProjects = new Set<Project['fullName']>();
+  function handleAssetsPreload(project: Project) {
+    if (preloadedProjects.has(project.fullName)) return;
+    if (project.videos) {
+      preload(project.videos?.desktop, 'video');
+      preload(project.videos?.mobile, 'video');
+    }
+    if (project.images) {
+      preload(project.images?.mobile, 'img');
+      preload(project.images?.desktop, 'img');
+    }
+    preloadedProjects.add(project.fullName);
+  }
 </script>
 
 <div
@@ -165,6 +180,7 @@
         <button
           class="project-btn"
           data-speed="0.2"
+          onmouseenter={e => handleAssetsPreload(p)}
           onclick={() => {
             selectedProject = p;
 

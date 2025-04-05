@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["Linkedin"]
+  "cSpell.words": ["Linkedin"],
+  "search.exclude": {
+    "**/build/*": true
+  }
 }

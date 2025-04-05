@@ -105,10 +105,6 @@
 </div>
 
 <style>
-  .t {
-    color: #2b1d0023;
-    color: #ff000019;
-  }
 
   .red {
     background-image: radial-gradient(circle at 120% 100%, rgba(255, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0) 100%),

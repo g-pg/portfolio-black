@@ -92,7 +92,7 @@
     {/if}
     <div>
       <nav class="burger-nav" class:open={showNav} use:clickOutside onclick_outside={() => (showNav = false)}>
-        <button class="burger-btn" class:open={showNav} onclick={() => handleOpenNav()}>
+        <button aria-label="nav-burger" class="burger-btn" class:open={showNav} onclick={() => handleOpenNav()}>
           <span class="burger-line"></span>
         </button>
 
