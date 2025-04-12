@@ -24,18 +24,6 @@
   let projectsTl: gsap.core.Timeline;
 
   onMount(() => {
-    // projects.forEach(project => {
-    //   if (project.videos) {
-    //     preload(project.videos?.desktop ?? '');
-    //     preload(project.videos?.mobile ?? '');
-    //   }
-
-    //   if (project.images) {
-    //     preload(project.images?.mobile ?? '');
-    //     preload(project.images?.desktop ?? '');
-    //   }
-    // });
-
     gsap.fromTo(
       pageTitle,
       { opacity: 0 },
@@ -262,6 +250,7 @@
     border: 2px solid white;
     font-family: var(--overpass);
     animation: grow 0.3s ease;
+    transform-origin: left top;
   }
 
   @keyframes grow {
@@ -291,7 +280,7 @@
   }
 
   .project.axon {
-    left: 25%;
+    left: 30%;
     top: 0;
     height: 150px;
     width: 150px;
@@ -300,7 +289,7 @@
 
   .project.old_portfolio {
     z-index: 490;
-    top: 40%;
+    top: 30%;
     left: 20%;
     width: 110px;
     height: 110px;
@@ -318,7 +307,7 @@
   .project.connect {
     z-index: 510;
     top: 2%;
-    right: 30%;
+    right: 25%;
     width: 180px;
     height: 180px;
   }
@@ -336,6 +325,14 @@
     right: 3rem;
     width: 210px;
     height: 210px;
+  }
+
+  .project.run-timer {
+    left: 30%;
+    top: 45%;
+    right: 3rem;
+    width: 200px;
+    height: 200px;
   }
   @media (max-width: 768px) {
     .projects-wrapper {
@@ -387,6 +384,15 @@
       left: 10%;
       top: 30%;
       right: 3rem;
+      width: 140px;
+      height: 140px;
+    }
+
+    .project.run-timer {
+      left: unset;
+      top: unset;
+      right: 0;
+      bottom: 20%;
       width: 140px;
       height: 140px;
     }

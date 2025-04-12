@@ -3,10 +3,10 @@
   import CloseIcon from '~icons/material-symbols/cancel-outline-rounded';
   import ExternalLinkIcon from '~icons/tabler/external-link';
   import notebookPicture from '$lib/assets/pictures/notebook-mock.png';
-  import phonePicture from '$lib/assets/pictures/phone-mock.png';
   import gsap from 'gsap';
   import { generateTippy } from '$lib/utils/tippy';
   import GithubIcon from '~icons/bx/bxl-github';
+  import MobileMock from '$lib/components/mocks/MobileMock.svelte';
 
   type ProjectText = keyof Project['texts'];
   type Props = {
@@ -72,18 +72,19 @@
       <p>{t}</p>
     {/each}
   {:else}
-    <p>{@html project.texts[text as  keyof Project['texts']]}</p>
+    <p>{@html project.texts[text as keyof Project['texts']]}</p>
   {/if}
 {/snippet}
 
 {#snippet phoneMock(project: Project)}
   <div class="phone-mock">
-    <img class="phone-mock-img" src={phonePicture} alt="" />
-    {#if project?.videos?.mobile}
-      <video class="project-phone-img" src={project.videos?.desktop} muted autoplay loop></video>
-    {:else if project.images?.mobile}
-      <img class="project-phone-img" src={project?.images?.mobile} alt="" />
-    {/if}
+    <MobileMock>
+      {#if project?.videos?.mobile}
+        <video class="project-phone-img" src={project.videos?.mobile} muted autoplay loop></video>
+      {:else if project.images?.mobile}
+        <img class="project-phone-img" src={project?.images?.mobile} alt="" />
+      {/if}
+    </MobileMock>
   </div>
 {/snippet}
 
@@ -133,7 +134,7 @@
           {/if}
         </div>
       </div>
-      <div class="content">
+      <div class="content {project.isMobile && 'mobile-project'}">
         <div class="info-column">
           {#each Object.keys(project.texts) as t}
             <div class="info-wrapper">
@@ -184,7 +185,7 @@
     transform: translate(-50%, -50%);
     z-index: 5010;
     overflow: auto;
-    max-width: 1440px;
+    max-width: 1300px;
   }
 
   .close-btn {
@@ -192,9 +193,7 @@
     color: var(--cl-grey-600);
     font-size: 2.5rem;
     position: absolute;
-    /* position: sticky; */
     top: 1rem;
-    /* top: 1rem; */
     left: 50%;
     transform: translateX(-50%);
   }
@@ -238,14 +237,14 @@
   }
 
   .info-column {
-    width: 100%;
     min-width: 500px;
     grid-area: info;
   }
 
   .content {
     display: grid;
-    grid-template-areas: 'info mocks mocks';
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'info  mocks';
     margin-top: 3rem;
     gap: 2rem;
     padding-bottom: 3rem;
@@ -257,42 +256,47 @@
   .mocks-column {
     width: 100%;
     position: relative;
-
     grid-area: mocks;
   }
 
   .mocks-wrapper {
     position: sticky;
     top: 1rem;
+    min-height: 200px;
   }
   .desktop-mock,
   .phone-mock {
-    top: 0;
-    right: 0;
+    pointer-events: none;
     position: relative;
-
-    /* overflow: hidden; */
   }
 
   .desktop-mock {
-    width: clamp(340px, 80vw, 800px);
+    width: clamp(340px, 80vw, 700px);
     z-index: 5000;
   }
 
   .phone-mock {
-    width: clamp(90px, 20vw, 360px);
-    max-width: fit-content;
+    transform: scale(0.35) translateY(-35%);
     z-index: 5010;
     position: absolute;
-    top: 15%;
+    top: 0;
     right: 0;
+    overflow: hidden;
+    top: 0;
+    right: -15%;
   }
 
-  .desktop-mock-img,
-  .phone-mock-img {
-    z-index: 4900;
-    position: relative;
+  .mobile-project .phone-mock {
+    transform: scale(0.8) translateY(-20%);
+    top: 0;
+    left: 0;
+    /* border: 1px solid red; */
     overflow: hidden;
+  }
+  .desktop-mock-img {
+    z-index: 4900;
+
+    position: relative;
   }
 
   .project-desktop-img {
@@ -304,14 +308,9 @@
   }
 
   .project-phone-img {
-    position: absolute;
-    top: 2.5%;
-    left: 6.5%;
-    width: 87%;
-    height: auto;
-    z-index: 4880;
-    border-radius: 12px;
-    max-height: 350px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
   .info-column {
     display: flex;
@@ -331,6 +330,7 @@
 
   @media (max-width: 1250px) {
     .content {
+      grid-template-columns: 1fr;
       grid-template-areas:
         'mocks'
         'info';
@@ -344,16 +344,37 @@
       position: relative;
       width: fit-content;
       margin-inline: auto;
+      top: 1rem;
     }
 
-    .phone-mock {
-      top: 10%;
-      right: 0;
+    .mobile-project .mocks-wrapper {
+      width: auto;
     }
 
     .header {
       display: flex;
       flex-direction: column;
+    }
+    .phone-mock {
+      transform: scale(0.35) translate(90%, -40%);
+      right: 0;
+    }
+    .mobile-project .phone-mock {
+      transform: scale(0.4) translateY(-100%);
+    }
+  }
+
+  @media (max-width: 750px) {
+    .phone-mock {
+      transform: scale(0.3) translate(90%, -70%);
+      right: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .phone-mock {
+      transform: scale(0.2) translate(180%, -150%);
+      right: 0;
     }
   }
 </style>

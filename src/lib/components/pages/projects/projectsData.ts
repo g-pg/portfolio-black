@@ -11,6 +11,7 @@ import OldPortfolioDesktopImage from '$lib/assets/projects/old-portfolio/desktop
 import OldPortfolioMobileImage from '$lib/assets/projects/old-portfolio/mobile.png';
 import OitoDesktopVideo from '$lib/assets/projects/oito/desktop-video.mp4';
 import OitoMobileImage from '$lib/assets/projects/oito/mobile.webp';
+import RunTimerMobileVideo from '$lib/assets/projects/run-timer/mobile-video.mp4';
 
 export type Project = {
   shortName: string;
@@ -19,6 +20,7 @@ export type Project = {
   mainColor: string;
   enabled: boolean;
   type?: string;
+  isMobile?: boolean;
   filterTools: ProjectFilterTool[];
   texts: {
     company?: string;
@@ -139,18 +141,25 @@ export const projects: Project[] = [
     enabled: true,
     mainColor: '#008c6b',
     type: 'dashboard',
-    filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node', 'SQL'],
+    filterTools: ['SvelteKit', 'Svelte', 'Typescript', 'Node', 'SQL', 'Mongo', 'React'],
     texts: {
       company: 'Axon Technology',
       roles: ['Desenvolvedor full stack', 'Designer'],
-      tools: ['SvelteKit', 'Typescript', 'Node', 'SQL'],
-      description: `O Connect, carro-chefe da Axon Technology, é um dispositivo IIOT que captura dados de desempenho de máquinas industriais. O meu papel é desenvolver a interface da aplicação, criar gráficos e outros meios de visualização de dados. Ocasionalmente, participo do desenvolvimento do backend, produzindo ou auxiliando a criação de novas features.
+      tools: ['SvelteKit', 'React', 'Typescript', 'Node', 'MySQL', 'MongoDB'],
+      description: `
+      O Connect, carro-chefe da Axon Technology, é um dispositivo IIOT que captura dados de desempenho de máquinas industriais.
+      Além de criar e manter a UI do dashboard, estas foram as minhas principais contribuições para o projeto:
       <br/><br/>
-        Por tratar-se de uma aplicação industrial, que frequentemente é mostrada em TVs ou telões, optei por utilizar elementos grandes e cores vivas e facilmente distinguíveis para identificar propriedades como turnos de trabalho e status de máquinas. 
-        <br/><br/>
-        Como uma das propostas do Connect é a "visualização de dados em qualquer lugar", outro ponto focal foi a responsividade da aplicação, o que, em se tratando de gráficos que costumam ocupar toda a tela, não é simples, mas contornável com um pouco de criatividade.
-        <br/><br/>
-        Além disso, a preocupação com a rapidez da aplicação é sempre levada a sério: um grande volume de dados chega a cada segundo, e cada uma das máquinas possui o seu próprio conjunto de informações. O manejamento de estados e controle de renderizações é crucial para o bom desempenho da aplicação.
+        <ul style="list-style: disc; padding-left: 1rem;">
+          <li>Refatorei o backend com princípios de DDD e clean code, promovendo separação de responsabilidades e concentração de regras de domínio na aplicação.</li>
+          <li>Normalizei bancos de dados MySQL, eliminando redundâncias e melhorando a integridade relacional.</li>
+          <li>Criei testes unitários e de integração utilizando Vitest.</li>
+          <li>Implementei filas com RabbitMQ para garantir integridade de dados entre mecanismos de persistência.</li>
+          <li>Reduzi o tempo de carregamento de páginas críticas de ~10s para carregamento instantâneo, com estratégias de caching e snapshots com MongoDB.</li>
+          <li>Projetei e implementei atualizações em tempo real via SSE, substituindo padrões legados de polling.</li>
+          <li>Criei dashboards com KPIs operacionais e gráficos interativos, facilitando decisões estratégicas.</li>
+          <li>Desenvolvi um painel administrativo interno completo, otimizando drasticamente o tempo de cadastro e gerenciamento de entidades do sistema.</li>
+        </ul>
         `,
     },
     thumbnail: ConnectThumb,
@@ -167,7 +176,7 @@ export const projects: Project[] = [
     fullName: 'Axon Hub',
     enabled: true,
     mainColor: 'white',
-    type: 'user manager',
+    type: 'manager',
     filterTools: ['SvelteKit', 'Svelte', 'Typescript'],
     texts: {
       company: 'Axon Technology',
@@ -223,7 +232,7 @@ export const projects: Project[] = [
       company: 'Projeto pessoal',
       roles: ['Desenvolvedor', 'Designer'],
       tools: ['Next', 'Typescript'],
-      description: `Um <i>guess the song</i>. Cole uma playlist do YouTube, escolha por quanto tempo cada música vai tocar e quanto tempo você tem até acertar.
+      description: `Um <i>guessing game</i> musical. Cole uma playlist do YouTube, escolha por quanto tempo cada música vai tocar e quanto tempo você tem até acertar.
       É um jogo especialmente divertido para conhece a discografia de um arista de trás pra frente.`,
     },
     thumbnail: ConnectThumb,
@@ -236,6 +245,28 @@ export const projects: Project[] = [
     links: {
       url: 'https://ohitsthatone.vercel.app/',
       // github: 'https://github.com/g-pg/portfolio',
+    },
+  },
+  {
+    className: 'run-timer',
+    shortName: 'JustRun',
+    fullName: 'JustRun',
+    enabled: true,
+    isMobile: true,
+    mainColor: '#d2ffab',
+    type: 'mobile app',
+    filterTools: ['SvelteKit'],
+    texts: {
+      company: 'Projeto pessoal',
+      roles: ['Desenvolvedor', 'Designer'],
+      tools: ['SvelteKit', 'Capacitor'],
+      description: `Um aplicativo Android para treinos de corrida, com rastreamento por GPS e timers personalizados.
+      O foco é a simplicidade e a facilidade de uso, com um design minimalista e intuitivo.
+      Ainda em desenvolvimento.`,
+    },
+    thumbnail: ConnectThumb,
+    videos: {
+      mobile: RunTimerMobileVideo,
     },
   },
 ];

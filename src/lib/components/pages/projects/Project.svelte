@@ -1,7 +1,7 @@
 <script lang="ts">
   import { textShuffle } from '$lib/utils/textShuffle';
   import { onMount } from 'svelte';
-  import ProjectView from './_ProjectView.svelte';
+  import ProjectView from './ProjectView.svelte';
   import type { Project } from './projectsData';
   import { browser } from '$app/environment';
 
