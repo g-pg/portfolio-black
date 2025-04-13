@@ -32,12 +32,11 @@
   const items: Item[] = [
     {
       title: 'Quem sou eu',
-      htmlText: `<p>Olá! Sou um desenvolvedor fullstack altamente inclinado para o front-end: desenvolver algoritmos é um hobby, mas
-        nada me satisfaz mais que entregar experiências. E eu gosto delas agradáveis, elegantes [e com boas surpresas,
-        aqui e ali].
-        <br/>
-        <br/>
-        Moro em Curitiba, no Paraná. Formei-me em Direito pela PUCPR em 2017. Tenho uma paixão indizível por filosofia e, quando o tempo permite, gosto de fazer meus vizinhos chorarem com as minhas incríveis habilidades na guitarra.   
+      htmlText: `<p>Sou um desenvolvedor full stack no limbo entre o back e o front-end. Eu gosto de entregar experiências
+      e <i>deixar as coisas bonitas</i>, mas o meu coração está em escrever algoritmos e resolver problemas lógicos.
+      <br/><br/>
+      Sou formado em Direito pela PUCPR, tenho uma paixão indizível por filosofia e, quando o tempo permite, gosto de fazer meus vizinhos chorarem com as minhas incríveis habilidades na guitarra.   
+      <br/></br/>
         </p>
        `,
     },
@@ -59,21 +58,9 @@
     {
       title: 'Como eu trabalho',
       htmlText: `<p>Eu gosto de ser criativo <i>on the go</i>. Todo projeto tem problemas, e talvez a minha parte preferida seja investigar as soluções.
-        <br/><br/>
-        Se os problemas estão escondidos, eu os procuro: como melhorar a experiência do usuário? Como otimizar esse algoritmo? Qual é a cereja do bolo?
-        <br/><br/>
+    
         </p>`,
     },
-    // {
-    //   title: 'Que ferramentas eu utilizo?',
-    //   htmlText: `
-    //   <p>
-
-    //     <br/><br/>
-    //     Se os problemas estão escondidos, eu os procuro: como melhorar a experiência do usuário? Como otimizar esse algoritmo? Qual é a cereja do bolo?
-    //     <br/><br/>
-    //     </p>`,
-    // },
   ];
 </script>
 
@@ -131,9 +118,7 @@
     color: var(--cl-grey-900);
   }
 
-
   @media (max-width: 780px) {
-
     .nav-wrapper {
       padding-bottom: 2rem;
     }
