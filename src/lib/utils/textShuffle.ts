@@ -1,6 +1,3 @@
-import { viewport } from '$lib/stores/isMobile.svelte';
-import { onDestroy } from 'svelte';
-
 type ShuffleOptions = {
   playOn?: Array<'hover' | 'load'>;
   dictionary?: 'own' | 'alphabet' | 'all';
@@ -173,14 +170,11 @@ class Shuffle {
       iterations++;
     }, this.speed * 1000);
 
-    const startClearingTm = setTimeout(
-      () => {
-        startClearing = true;
-        const countDownTimer = this.duration * 0.4 * 100;
-        const int = setInterval(() => countDown++, countDownTimer);
-      },
-      this.duration * 0.5 * 1000
-    );
+    const startClearingTm = setTimeout(() => {
+      startClearing = true;
+      const countDownTimer = this.duration * 0.4 * 100;
+      const int = setInterval(() => countDown++, countDownTimer);
+    }, this.duration * 0.5 * 1000);
 
     this.shuffleTimeout = setTimeout(() => {
       this.clearShuffle();

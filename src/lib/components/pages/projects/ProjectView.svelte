@@ -114,9 +114,6 @@
     {/if}
   {/if}
 {/snippet}
-<!-- transition:fly={{ y: -window.innerHeight, opacity: 1, duration: 800 }} -->
-<!-- <div class="overlay" class:visible={showView}></div> -->
-<!-- {#if showView} -->
 <div class="view-container">
   <div class="view">
     <button class="close-btn" onclick={() => (showView = false)}><CloseIcon /></button>

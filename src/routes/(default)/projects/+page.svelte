@@ -4,7 +4,6 @@
   import Tools from '$lib/components/pages/projects/Tools.svelte';
   import { type ProjectFilterTool } from '$lib/components/pages/projects/projectsData';
   import type { PageData } from './$types';
-  // import { checkViewport, viewport } from '$lib/stores/isMobile.svelte';
 
   let { data }: { data: PageData } = $props();
   const projects = data.projects;
@@ -13,8 +12,6 @@
   let filteredTool = $state('');
 
   function filterProjects(tool: ProjectFilterTool) {
-    // if (viewport.isMobile) return;
-
     if (filteredTool === tool) {
       resetProjects();
       return;

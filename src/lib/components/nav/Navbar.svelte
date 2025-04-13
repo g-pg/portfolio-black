@@ -83,7 +83,7 @@
           <button
             class="breadcrumb-btn"
             onclick={() => goto('/')}
-            use:textShuffle={{targetNode: document.querySelector('.breadcrumb-btn span') as HTMLElement}}>
+            use:textShuffle={{ targetNode: document.querySelector('.breadcrumb-btn span') as HTMLElement }}>
             <ArrowLeft font-size="2rem" color="var(--cl-low-text)" />
             <span>Voltar</span>
           </button>
@@ -119,10 +119,6 @@
                 href="/contact"
                 finalGap={36}
                 style="color: var(--cl-text)" />
-              <!-- <a href="/contact" class="contact-link" onclick={handleNavigate}
-                ><span use:textShuffle={{ playOn: ['hover'], duration: 0.3 }}>Fale comigo</span>
-                <ArrowRight font-size="2rem" color="var(--cl-low-text)" />
-              </a> -->
             </li>
           </ul>
         </div>
@@ -239,6 +235,7 @@
   }
 
   .burger-menu {
+    opacity: 0;
     font-family: var(--overpass);
     /* --height: 20vh; */
     position: fixed;
@@ -250,7 +247,9 @@
     right: -100%;
     /* right: -50%; */
     /* right: -100%; */
-    transition: all 0.5s ease;
+    transition:
+      right 0.5s ease,
+      opacity 0.5s ease;
     text-transform: uppercase;
     padding: 3rem 5rem 1rem 1rem;
     /* padding-top: 5rem; */
@@ -261,6 +260,8 @@
   }
 
   .open .burger-menu {
+    transition: right 0.5s ease;
+    opacity: 1;
     right: 0;
     top: 0;
   }

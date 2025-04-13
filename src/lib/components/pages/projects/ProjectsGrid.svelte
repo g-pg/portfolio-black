@@ -136,7 +136,8 @@
 
   const preloadedProjects = new Set<Project['fullName']>();
   function handleAssetsPreload(project: Project) {
-    if (preloadedProjects.has(project.fullName)) return;
+    console.log(project.fullName);
+    if (preloadedProjects.has(project.shortName)) return;
     if (project.videos) {
       preload(project.videos?.desktop, 'video');
       preload(project.videos?.mobile, 'video');
@@ -145,8 +146,14 @@
       preload(project.images?.mobile, 'img');
       preload(project.images?.desktop, 'img');
     }
-    preloadedProjects.add(project.fullName);
+    preloadedProjects.add(project.shortName);
   }
+
+  onMount(() => {
+    if (viewport.isMobile) {
+      projects.forEach(p => handleAssetsPreload(p));
+    }
+  });
 </script>
 
 <div
@@ -280,17 +287,18 @@
   }
 
   .project.axon {
-    left: 30%;
-    top: 0;
+    left: 20%;
+    top: 45%;
+    right: 3rem;
+
     height: 150px;
     width: 150px;
-    z-index: 510;
   }
 
   .project.old_portfolio {
     z-index: 490;
-    top: 30%;
-    left: 20%;
+    top: 10%;
+    left: 10%;
     width: 110px;
     height: 110px;
     /* filter: blur(1px); */
@@ -306,8 +314,8 @@
 
   .project.connect {
     z-index: 510;
-    top: 2%;
-    right: 25%;
+    top: -5%;
+    right: 30%;
     width: 180px;
     height: 180px;
   }
@@ -315,13 +323,14 @@
   .project.muvi {
     z-index: 490;
     top: 60%;
+    left: 40%;
     width: 130px;
     height: 130px;
   }
 
   .project.oito {
     left: 60%;
-    top: 45%;
+    top: 50%;
     right: 3rem;
     width: 210px;
     height: 210px;
@@ -329,10 +338,10 @@
 
   .project.run-timer {
     left: 30%;
-    top: 45%;
-    right: 3rem;
-    width: 200px;
-    height: 200px;
+    top: -5%;
+    width: 180px;
+    height: 180px;
+    z-index: 510;
   }
   @media (max-width: 768px) {
     .projects-wrapper {
@@ -349,12 +358,15 @@
     }
 
     .project.axon {
-      left: 1rem;
+      inset: unset;
+      top: 55%;
+      right: 2rem;
       width: 140px;
       height: 140px;
     }
 
     .project.muvi {
+      inset: unset;
       top: 0;
       right: 1rem;
       width: 120px;
@@ -362,37 +374,40 @@
     }
 
     .project.connect {
+      inset: unset;
       left: 1rem;
-      top: 60%;
+      top: 50%;
       width: 170px;
       height: 170px;
     }
 
     .project.hub {
+      inset: unset;
       top: 17%;
       left: unset;
       right: 30%;
     }
 
     .project.old_portfolio {
+      inset: unset;
       left: unset;
       top: 45%;
       right: 3rem;
     }
 
     .project.oito {
+      inset: unset;
       left: 10%;
-      top: 30%;
+      top: 0;
       right: 3rem;
       width: 140px;
       height: 140px;
     }
 
     .project.run-timer {
-      left: unset;
-      top: unset;
-      right: 0;
-      bottom: 20%;
+      inset: unset;
+      right: 40%;
+      bottom: 10%;
       width: 140px;
       height: 140px;
     }

@@ -198,7 +198,7 @@ export const projects: Project[] = [
     className: 'old_portfolio',
     shortName: 'Portfolio [old]',
     fullName: 'Antigo portfólio',
-    enabled: true,
+    enabled: false,
     mainColor: 'white',
     type: 'website',
     filterTools: ['Next', 'Typescript', 'Node', 'React'],

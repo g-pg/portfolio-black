@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { generateTippy } from '$lib/utils/tippy';
   import { fly } from 'svelte/transition';
   import PlusIcon from '~icons/lucide/plus';
   import InfiniteIcon from '~icons/bx/infinite';
@@ -8,6 +7,7 @@
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
   import { projectTools, type ProjectFilterTool } from './projectsData';
   import ResetIcon from '~icons/material-symbols/refresh-rounded';
+
   type Props = {
     filterProjects: (tool: ProjectFilterTool) => void;
     resetProjects: () => void;
@@ -57,11 +57,7 @@
 
 {#snippet plus()}
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div
-    class="plus-wrapper"
-    class:showPlus
-    class:rotate={rotatePlusIcon}
-    >
+  <div class="plus-wrapper" class:showPlus class:rotate={rotatePlusIcon}>
     <span
       class="tool plus filter-btn enter-animation"
       bind:this={plusIcon}
@@ -159,16 +155,23 @@
   }
 
   .rotate {
+    transform-origin: center;
     animation: 1s cubic-bezier(0.27, 0.53, 0.94, 1.06) rotate forwards;
   }
 
   .plus-wrapper {
     height: 28.8px;
     width: 28.8px;
-
     position: relative;
   }
 
+  @media (max-width: 768px) {
+    .plus-wrapper {
+      width: 14px;
+      height: 14px;
+      aspect-ratio: 1;
+    }
+  }
   .infinite,
   .plus {
     top: 0;
@@ -210,9 +213,6 @@
   }
 
   @media (max-width: 768px) {
-    .reset-btn {
-      /* display: none; */
-    }
     .tools-wrapper {
       gap: 0.8rem;
     }

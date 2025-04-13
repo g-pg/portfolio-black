@@ -1,18 +1,27 @@
 import { browser } from '$app/environment';
-import { onMount } from 'svelte';
+export class Viewport {
+  private _isMobile = $state(browser && window.innerWidth < 780);
+  private _isListening = false;
 
-export function checkViewport() {
-  let isMobile = $state(false);
-
-  if (browser) {
-    isMobile = window.innerWidth < 780;
+  private handleResize() {
+    this._isMobile = window.innerWidth < 780;
   }
 
-  return {
-    get isMobile() {
-      return isMobile;
-    },
-  };
+  init() {
+    if (browser) {
+      this.handleResize.bind(this);
+      window.addEventListener('resize', this.handleResize.bind(this));
+      this._isListening = true;
+    }
+  }
+
+  get isMobile() {
+    if (!this._isListening) {
+      this.init();
+    }
+    return this._isMobile;
+  }
 }
 
-export const viewport = checkViewport();
+const vp = new Viewport();
+export const viewport = vp;
