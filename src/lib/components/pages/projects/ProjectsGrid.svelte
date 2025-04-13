@@ -136,7 +136,6 @@
 
   const preloadedProjects = new Set<Project['fullName']>();
   function handleAssetsPreload(project: Project) {
-    console.log(project.fullName);
     if (preloadedProjects.has(project.shortName)) return;
     if (project.videos) {
       preload(project.videos?.desktop, 'video');
