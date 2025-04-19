@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const folderPath = path.resolve(__dirname, '../../../lib/assets/cv/');
+const folderPath = path.resolve(__dirname, '../../../../static/cv/');
 
 export const GET: RequestHandler = async ({ params }) => {
   if (params.id === undefined) {
