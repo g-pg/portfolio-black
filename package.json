@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/node": "^22.14.1",
     "gsap": "^3.12.7",
     "prettier-plugin-svelte": "^3.3.3",
     "tippy.js": "^6.3.7"
